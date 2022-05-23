@@ -52,6 +52,20 @@
   filter: invert(70%) sepia(100%);
 }
 
+.btn-skull-logo {
+  height: 50px;
+  width: 50px;
+  filter: invert(25%);
+}
+
+.btn-skull-logo:hover {
+  height: 50px;
+  width: 50px;
+  
+  filter: invert(40%);
+  cursor: pointer;
+}
+
 .theInitiative {
   list-style-type: none;
 }
@@ -62,4 +76,39 @@
 
 .villain-card {
   background-color: #f8d7da !important;
+}
+
+.creature-name {
+  outline: none;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  background-color: transparent;
+}
+
+.ac-number {
+  outline: none;
+  border: none;
+  background-color: transparent;
+  z-index: 50;
+}
+
+.ac-shield-icon {
+  /* set display back when ready */
+  display: none;
+  height: 100px;
+  width: 80px;
+
+  top: -26px;
+  right: -21px;
+  
+  position: absolute;
+  z-index: 100;
+}
+
+.creature-notes {
+  width:100%;
+  border:none;
+  outline: none;
+  background: transparent;
 }

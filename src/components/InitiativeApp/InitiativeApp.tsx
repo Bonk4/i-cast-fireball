@@ -15,8 +15,11 @@ export class InitiativeApp extends React.Component {
 
     rollForInitiative = () => {
         this.clearInitiative();
-        
+
+        // this makes sure the initiative "resets" if clicked again
         this.creatures = this.heroes.concat(this.villains);
+        this.creatures.forEach(x => x.display = true);
+
         this.setState({creatures: this.creatures });
     }
 
@@ -55,7 +58,7 @@ export class InitiativeApp extends React.Component {
         let rolls = villianRolls.split(/[\s,]+/);
 
         for(let i = 0; i < rolls.length; i++) {
-            if (rolls[i] != '' && rolls[i] !== undefined) {
+            if (rolls[i] !== '' && rolls[i] !== undefined) {
                 let badGuy = new Villain();
                 badGuy.name = VillainNames.GetVillainName();
                 badGuy.initiative = parseInt(rolls[i]);
@@ -65,12 +68,12 @@ export class InitiativeApp extends React.Component {
         }
     }
 
-    simpleHeroMode = (e: any, test: boolean) => {
+    simpleHeroMode = (e: any) => {
         this.simpleHeroes = e.target.checked;
         console.log(this.simpleHeroes);
     }
 
-    simpleVillainMode = (e: any, test: boolean) => {
+    simpleVillainMode = (e: any) => {
         this.simpleVillains = e.target.checked;
         console.log(this.simpleHeroes);
     }
@@ -82,9 +85,9 @@ export class InitiativeApp extends React.Component {
                     <div className="col-lg">
 
                         {/* Heroes List */}
-                        <div className="form-check form-switch">
+                        <div className="form-check form-switch d-none">
                             <label className="form-check-label" htmlFor="simpleHeroes">Simple input mode</label>
-                            <input className="form-check-input" type="checkbox" role="switch" id="simpleHeroes" onChange={(e) => this.simpleHeroMode(e, this.simpleHeroes)} defaultChecked={this.simpleHeroes } />
+                            <input className="form-check-input" type="checkbox" role="switch" id="simpleHeroes" onChange={(e) => this.simpleHeroMode(e)} defaultChecked={this.simpleHeroes } />
                         </div>
 
                         <div className="input-group">
@@ -98,21 +101,23 @@ export class InitiativeApp extends React.Component {
                     </div>
 
                     <div className="col-lg">
+                        
+                        {/* Initiative Track */}
                         <InitiativeTracker creatures={ this.creatures } />
 
                         <button className="btn btn-secondary me-3" onClick={this.clearInitiative}>Clear</button>
                         <button className="btn btn-danger btn-fireball" onClick={this.rollForInitiative}>
                             Roll For Initiative!
-                            <img src="/Fireball.svg" className="btn-fireball-logo"></img>
+                            <img src="/Fireball.svg" className="btn-fireball-logo" alt="fireball logo"></img>
                         </button>
                     </div>
 
                     <div className="col-lg">
 
                         {/* Villains List */}
-                        <div className="form-check form-switch">
+                        <div className="form-check form-switch d-none">
                             <label className="form-check-label" htmlFor="simpleVillains">Simple input mode</label>
-                            <input className="form-check-input" type="checkbox" role="switch" id="simpleVillains" onChange={(e) => this.simpleVillainMode(e, this.simpleHeroes)} defaultChecked={this.simpleVillains } />
+                            <input className="form-check-input" type="checkbox" role="switch" id="simpleVillains" onChange={(e) => this.simpleVillainMode(e)} defaultChecked={this.simpleVillains } />
                         </div>
 
                         <div className="input-group">
