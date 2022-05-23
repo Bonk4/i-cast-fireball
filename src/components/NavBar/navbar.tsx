@@ -5,19 +5,14 @@ export class NavBar extends React.Component {
         return (
             <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
                 <div className="container">
-                    <a className="navbar-brand" href="#">I Cast Fireball!</a>
+                    <a className="navbar-brand" href="#">
+                        <img src="/Fireball.svg" className="btn-fireball-logo me-2"></img>
+                        <span className="mt-1">I Cast Fireball!</span>
+                    </a>
 
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                     </button>
-
-                    {/* <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul className="navbar-nav navbar-right ms-auto mb-2 mb-lg-0">
-                            <li className="nav-item">
-                                
-                            </li>
-                        </ul>
-                    </div> */}
                 </div>
             </nav>
         );

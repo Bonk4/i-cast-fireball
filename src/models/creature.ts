@@ -6,5 +6,6 @@ export class Creature {
 
     initiative: number = 0;
 
+    display: boolean = true;
     marked: boolean = false;
 }

@@ -10,25 +10,27 @@ export class InitiativeApp extends React.Component {
     creatures: Creature[] = [];
     heroes: Hero[] = [];
     villains: Villain[] = [];
+    simpleHeroes: boolean = true;
+    simpleVillains: boolean = true;
 
     rollForInitiative = () => {
         this.clearInitiative();
         
         this.creatures = this.heroes.concat(this.villains);
-        //console.log(this.creatures);
         this.setState({creatures: this.creatures });
     }
 
-    clearHeroes(){
+    clearHeroes = () => {
         this.heroes = [];
     }
     
-    clearVillains() {
+    clearVillains = () => {
         this.villains = [];
     }
 
-    clearInitiative(){
+    clearInitiative = () => {
         this.creatures = [];
+        this.setState({creatures: this.creatures });
     }
 
     updateHeroes = (heroRolls: string) => {
@@ -37,7 +39,7 @@ export class InitiativeApp extends React.Component {
         let rolls = heroRolls.split(/[\s,]+/);
 
         for(let i = 0; i < rolls.length; i++) {
-            if (rolls[i] != '' && rolls[i] !== undefined){
+            if (rolls[i] !== '' && rolls[i] !== undefined){
                 let goodGuy = new Hero();
                 goodGuy.name = HeroNames.GetHeroName();
                 goodGuy.initiative = parseInt(rolls[i]);
@@ -63,13 +65,28 @@ export class InitiativeApp extends React.Component {
         }
     }
 
+    simpleHeroMode = (e: any, test: boolean) => {
+        this.simpleHeroes = e.target.checked;
+        console.log(this.simpleHeroes);
+    }
+
+    simpleVillainMode = (e: any, test: boolean) => {
+        this.simpleVillains = e.target.checked;
+        console.log(this.simpleHeroes);
+    }
+
     render() {
         return (
             <div className="container">
-                <div className="row">
+                <div className="row mt-3">
                     <div className="col-lg">
 
                         {/* Heroes List */}
+                        <div className="form-check form-switch">
+                            <label className="form-check-label" htmlFor="simpleHeroes">Simple input mode</label>
+                            <input className="form-check-input" type="checkbox" role="switch" id="simpleHeroes" onChange={(e) => this.simpleHeroMode(e, this.simpleHeroes)} defaultChecked={this.simpleHeroes } />
+                        </div>
+
                         <div className="input-group">
                             <span className="input-group-text">Party Rolls</span>
 
@@ -81,13 +98,23 @@ export class InitiativeApp extends React.Component {
                     </div>
 
                     <div className="col-lg">
-                        <button className="btn btn-primary" onClick={this.rollForInitiative}>Roll For Initiative!</button>
                         <InitiativeTracker creatures={ this.creatures } />
+
+                        <button className="btn btn-secondary me-3" onClick={this.clearInitiative}>Clear</button>
+                        <button className="btn btn-danger btn-fireball" onClick={this.rollForInitiative}>
+                            Roll For Initiative!
+                            <img src="/Fireball.svg" className="btn-fireball-logo"></img>
+                        </button>
                     </div>
 
                     <div className="col-lg">
 
                         {/* Villains List */}
+                        <div className="form-check form-switch">
+                            <label className="form-check-label" htmlFor="simpleVillains">Simple input mode</label>
+                            <input className="form-check-input" type="checkbox" role="switch" id="simpleVillains" onChange={(e) => this.simpleVillainMode(e, this.simpleHeroes)} defaultChecked={this.simpleVillains } />
+                        </div>
+
                         <div className="input-group">
                             <span className="input-group-text">Villain Rolls</span>
                             <textarea id="villainRolls" className="form-control" aria-label="With textarea"

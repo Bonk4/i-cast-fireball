@@ -36,3 +36,30 @@
     transform: rotate(360deg);
   }
 }
+
+/* Hero Sidebar */
+
+/* Villain Sidebar */
+
+/* Initiative Tracker */
+.btn-fireball {
+  padding: 5px;
+}
+
+.btn-fireball-logo {
+  height: 32px;
+  width: 32px;
+  filter: invert(70%) sepia(100%);
+}
+
+.theInitiative {
+  list-style-type: none;
+}
+
+.hero-card {
+  background-color: #cfe2ff !important;
+}
+
+.villain-card {
+  background-color: #f8d7da !important;
+}

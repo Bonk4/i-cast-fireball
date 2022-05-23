@@ -10,8 +10,11 @@ import 'bootstrap/dist/js/bootstrap.bundle.js';
 function App() {
   return (
     <div className="App">
+
       <NavBar />
+
       <InitiativeApp />
+      
     </div>
   );
 }
