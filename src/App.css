@@ -78,6 +78,10 @@
   background-color: #f8d7da !important;
 }
 
+.misc-card {
+  background-color: #fff3cd !important;
+}
+
 .creature-name {
   outline: none;
   border-top: none;
@@ -94,7 +98,7 @@
 }
 
 .ac-shield-icon {
-  /* set display back when ready */
+  /* set display back when ready  */
   display: none;
   height: 100px;
   width: 80px;
