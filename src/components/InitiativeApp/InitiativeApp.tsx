@@ -356,7 +356,7 @@ export class InitiativeApp extends React.Component {
                                         })}>
                         <div className="form-check form-check-inline">
                             <input className="form-check-input" type="radio" name={'villain-initiative-radio-' + villain.id} id={'crit-normal-villian-' + villain.id} value="normalInitiative"
-                                onChange={(e) => this.customCritical(villain.id, 1, true)} checked />
+                                onChange={(e) => this.customCritical(villain.id, 1, true)} defaultChecked={true} />
                             <label className="form-check-label" id={'crit-normal-villian-' + villain.id}>Normal</label>
                         </div>
                         <div className="form-check form-check-inline mb-3">
