@@ -125,16 +125,27 @@
 }
 
 .ac-shield-icon {
-  /* set display back when ready  */
-  display: none;
-  height: 100px;
-  width: 80px;
+  /* set display back when ready
+  display: none; */
+  height: 30px;
+  width: 30px;
 
-  top: -26px;
-  right: -21px;
+  /* top: -26px;
+  right: -21px; 
   
-  position: absolute;
-  z-index: 100;
+  position: absolute; */
+}
+
+.hp-heart-icon {
+  /* set display back when ready
+  display: none; */
+  height: 30px;
+  width: 30px;
+
+  /* top: -26px;
+  right: -21px; 
+  
+  position: absolute; */
 }
 
 .creature-notes {

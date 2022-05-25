@@ -25,7 +25,12 @@ export class InitiativeTracker extends React.Component<Props> {
     }
 
     refresh() {
-        this.sortedInitiative.forEach(x => x.display = true);
+        this.sortedInitiative.forEach(x => {
+            x.display = true;
+            x.critFail = false;
+            x.critSuccess = false;
+            x.marked = false;
+        });
     }
 
     sortInitiative(creaturesToSort: Creature[]): Creature[] {
@@ -47,6 +52,15 @@ export class InitiativeTracker extends React.Component<Props> {
                         let b2 = b as Reminder;
                         if (b2.goesFirst) return 1;
                         if (b2.goesLast) return -1;
+                    }
+
+                    // Next priority is Crit Success/Fail
+                    if(a.critFail || a.critSuccess || b.critFail || b.critSuccess) {
+                        if (a.critSuccess && b.critSuccess) {
+                            return 0;
+                        }
+                        if (a.critFail || b.critSuccess) return 1;
+                        if (b.critFail || a.critSuccess) return -1;
                     }
 
                     if (keyA < keyB) return 1;
@@ -93,7 +107,7 @@ export class InitiativeTracker extends React.Component<Props> {
     render() {
         return (
             <div>
-                <div className="form-check form-switch ms-5 mb-2">
+                <div className="form-check form-switch ms-5 mt-2 mb-2">
                     <input className="form-check-input float-start" type="checkbox" role="switch" id="chkCompactView" 
                         onChange={this.compactViewChanges}/>
 
@@ -171,7 +185,17 @@ export class InitiativeTracker extends React.Component<Props> {
                                                 "creature-name": true
                                             })} />
                                     </h5>
-                                    <h6 className="card-subtitle mt-2 text-muted">Initiative: {creature.initiative}</h6>
+                                    <h6 className="card-subtitle mt-2 text-muted">
+                                        {
+                                            'Initiative: ' + creature.initiative
+                                        }
+                                        {
+                                            creature.critSuccess ? ' (Critical Success)*' : ''
+                                        }
+                                        {
+                                            creature.critFail ? ' (Critical Failure)*' : ''
+                                        }
+                                    </h6>
                                 </div>
 
                                 <div className="col-3">
@@ -195,18 +219,18 @@ export class InitiativeTracker extends React.Component<Props> {
                                 </div>
                                 <div className="col-4">
 
-                                    <div className="text-end input-group">
-                                        <span className={classNames({
+                                    <div className="text-end">
+                                        {/* <span className={classNames({
                                                 "input-group-text": true,
                                                 "creature-stats": true,
                                                 "fs-4": true
                                             })}
-                                            id="inputGroup-sizing-default">AC</span>
-                                        {/* <img src="shield_icon_fill.svg" className="ac-shield-icon"></img> */}
+                                            id="inputGroup-sizing-default">AC</span> */}
+                                        <img src="shield_icon_fill.svg" className="ac-shield-icon"></img>
                                         <input type="number"
                                             defaultValue={creature.ac}
                                             className={classNames({
-                                                "form-control": true,
+                                                "form-control w-50": true,
                                                 "creature-stats": true,
                                                 "d-inline": true,
                                                 "text-center": true,
@@ -214,17 +238,18 @@ export class InitiativeTracker extends React.Component<Props> {
                                             })} />
                                     </div>
 
-                                    <div className="text-end input-group">
-                                        <span className="input-group-text creature-stats text-end fs-4" id="inputGroup-sizing-default">HP</span>
+                                    <div className="text-end">
+                                        {/* <span className="input-group-text creature-stats text-end fs-4" id="inputGroup-sizing-default">HP</span> */}
+                                        
+                                        <img src="heart_icon.svg" className="hp-heart-icon"></img>
                                         <input type="number"
                                             defaultValue={creature.hp}
                                             className={classNames({
-                                                "form-control": true,
+                                                "form-control w-50": true,
                                                 "creature-stats": true,
                                                 "d-inline": true,
                                                 "text-center": true,
-                                                "fs-4": true,
-                                                "text-start": true
+                                                "fs-4": true
                                             })} />
                                     </div>
                                 </div>

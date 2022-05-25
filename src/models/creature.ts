@@ -7,6 +7,8 @@ export class Creature {
     ac: number = 10;
 
     initiative: number = 0;
+    critFail: boolean = false;
+    critSuccess: boolean = false;
 
     display: boolean = true;
     marked: boolean = false;
