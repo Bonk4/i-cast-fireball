@@ -138,7 +138,7 @@ export class InitiativeApp extends React.Component {
         if(option === 1) {
             creature.critSuccess = false;
             creature.critFail = false;
-            creature.marked = true;
+            creature.marked = false;
         }
 
         if(option === 2 || option === 3) {
