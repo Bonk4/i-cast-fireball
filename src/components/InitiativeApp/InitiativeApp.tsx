@@ -10,9 +10,10 @@ import { Reminder } from "../../models/creatures/reminder";
 
 export class InitiativeApp extends React.Component {
     creatures: Creature[] = [];
-    heroes: Hero[] = [];
-    villains: Villain[] = [];
+    heroes: Hero[] = [new Hero()];
+    villains: Villain[] = [new Villain()];
     misc: Reminder[] = [];
+    rollForMe: boolean = false;
 
     constructor(){
         super({});
@@ -20,18 +21,32 @@ export class InitiativeApp extends React.Component {
             creatures: [],
             heroes: [],
             villains: [],
-            misc: []
+            misc: [],
+            rollForMe: false
         }
     }
 
     rollForInitiative = () => {
         this.clearInitiative();
 
+        if(this.rollForMe)
+            this.rollVillainInitiative();
+
         // this makes sure the initiative "resets" if clicked again
         this.creatures = this.heroes.concat(this.villains).concat(this.misc);
         this.creatures.forEach(x => x.display = true);
 
         this.setState({ creatures: this.creatures });
+    }
+
+    rollVillainInitiative() {
+        this.villains.forEach(villain => villain.initiative = this.getDiceRoll() + villain.bonus);
+    }
+
+    getDiceRoll() {
+        let min = Math.ceil(1);
+        let max = Math.floor(20);
+        return Math.floor(Math.random() * (max - min + 1)) + min;
     }
 
     clearHeroes = () => {
@@ -77,9 +92,14 @@ export class InitiativeApp extends React.Component {
     customInitiative = (e: any, creatureId: number, isVillain: boolean = false) => {
         const newInitiative = parseInt(e.target.value);
         const index = this.getCreatureIndexById(creatureId, isVillain);
+
         if(index !== undefined) {
             if(isVillain){
-                this.villains[index].initiative = newInitiative;
+                if(this.rollForMe){
+                    this.villains[index].bonus = newInitiative;
+                } else {
+                    this.villains[index].initiative = newInitiative;
+                }
                 this.setState({villains: this.villains});
             } else {
                 this.heroes[index].initiative = newInitiative;
@@ -202,6 +222,12 @@ export class InitiativeApp extends React.Component {
         return this.heroes.findIndex(hero => { return hero.id === id });
     }
 
+    rollForMeChanges = (e: any) => {
+        //debugger; 
+        this.rollForMe = e.target.checked;
+        this.setState({rollForMe: this.rollForMe});
+    }
+
     getHeroEditor() {
         return this.heroes
             .map((hero: Hero) => (
@@ -228,7 +254,8 @@ export class InitiativeApp extends React.Component {
     getVillainEditor() {
         return this.villains
             .map((villain: Villain) => (
-                <div>
+                <div id="custom-villain-form">
+
                     <div className="input-group mb-3">
                         <span className="input-group-text">Villain</span>
                         <input id={"custom-hero-"+ villain.name} type="text" className="form-control" placeholder="Character" aria-label="Username" 
@@ -238,9 +265,9 @@ export class InitiativeApp extends React.Component {
                         <input id={"custom-hero-ac-"+ villain.ac} type="number" className="form-control" placeholder="Initiative" aria-label="Server" 
                             value={villain.ac} onChange={ (e) => this.customAc(e, villain.id, true) } />
                         
-                        <span className="input-group-text">Initiative</span>
+                        <span className="input-group-text">{ this.rollForMe ? 'Init Bonus' : 'Initiative'}</span>
                         <input id={"custom-hero-initiative-"+ villain.initiative} type="number" className="form-control" placeholder="Initiative" aria-label="Server" 
-                            value={villain.initiative} onChange={ (e) => this.customInitiative(e, villain.id, true) } />
+                            value={this.rollForMe ? villain.bonus : villain.initiative} onChange={ (e) => this.customInitiative(e, villain.id, true) } />
                         
                         <button className="btn btn-outline-danger" type="button" id="button-addon2" onClick={(e) => this.removeVillain(villain.id)}>Delete</button>
                     </div>
@@ -309,11 +336,7 @@ export class InitiativeApp extends React.Component {
                                             <div className="tab-pane fade show active" id="pills-heroes-quick" role="tabpanel" aria-labelledby="pills-heroes-quick-tab">
                                                 {/* Simple Editor */}
                                                 <div className="input-group mt-3 mb-3">
-                                                    <span className="input-group-text"
-                                                        // data-tip="test"
-                                                        // data-type="info"
-                                                        // data-delay-hide="1000"
-                                                        >
+                                                    <span className="input-group-text">
                                                             Party Rolls
                                                     </span>
 
@@ -374,6 +397,12 @@ export class InitiativeApp extends React.Component {
                                             <div className="tab-pane fade" id="pills-villains-custom" role="tabpanel" aria-labelledby="pills-villains-custom-tab">
                                                 {/* Custom Editor */}
                                                 <div className="input-group mt-3 mb-3">
+                                                    <div className="form-check form-switch mt-3 mb-3">
+                                                        <input className="form-check-input float-start" type="checkbox" role="switch" id="rollForMe"
+                                                            onChange={this.rollForMeChanges} />
+                                                        <label className="form-check-label float-start" htmlFor="flexSwitchCheckDefault">Roll for me?</label>
+                                                    </div>
+
                                                     {this.getVillainEditor()}
                                                 </div>
 

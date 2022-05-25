@@ -12,10 +12,16 @@ type Props = {
 export class InitiativeTracker extends React.Component<Props> {
 
     sortedInitiative: Creature[] = [];
+    compactView: boolean = false;
 
     removeCreature = (e: any, target: Creature) => {
         target.display = false;
-        this.setState({});
+        this.setState({sortedInitiative: this.sortedInitiative});
+    }
+
+    markCreature = (e: any, target: Creature) => {
+        target.marked = !target.marked;
+        this.setState({sortedInitiative: this.sortedInitiative});
     }
 
     refresh() {
@@ -30,6 +36,7 @@ export class InitiativeTracker extends React.Component<Props> {
                     let keyA = a.initiative,
                         keyB = b.initiative;
 
+                    // Reminder logic for "always goes first/last" takes priority
                     if(a instanceof Reminder) {
                         let a2 = a as Reminder;
                         if (a2.goesFirst) return -1;
@@ -78,11 +85,24 @@ export class InitiativeTracker extends React.Component<Props> {
         this.setState({ sortedInitiative: this.sortedInitiative });
     };
 
+    compactViewChanges = (e: any) => {
+        this.compactView = e.target.checked;
+        this.setState({compactView: this.compactView});
+    }
+
     render() {
         return (
-            <ul className="theInitiative text-start">
-                {this.getInitiative()}
-            </ul>
+            <div>
+                <div className="form-check form-switch ms-5 mb-2">
+                    <input className="form-check-input float-start" type="checkbox" role="switch" id="chkCompactView" 
+                        onChange={this.compactViewChanges}/>
+
+                    <label className="form-check-label float-start" htmlFor="chkCompactView">Compact View</label>
+                </div>
+                <ul className="theInitiative text-start">
+                    {this.getInitiative()}
+                </ul>
+            </div>
         );
     }
 
@@ -125,13 +145,25 @@ export class InitiativeTracker extends React.Component<Props> {
                         "hero-card": creature instanceof Hero,
                         "villain-card": creature instanceof Villain,
                         "misc-card": creature instanceof Reminder,
-                        "d-none": !creature.display
+                        "d-none": !creature.display,
+                        "marked-creature": creature.marked
                     })}>
 
                         <div className="card-body">
                             <div className="row">
-                                <div className="col-9">
-                                    <h5>
+                                <div className="col-1 p-0">
+                                    <img src="/bookmark_chevron.svg"
+                                        className={classNames({
+                                            "btn-bookmark-logo p-0 float-start": true,
+                                            "bookmark-active": creature.marked
+                                        })}
+                                        
+                                        alt="bookmark icon"
+                                        onClick={(e) => this.markCreature(e, creature)}></img>
+                                </div>
+
+                                <div className="col">
+                                <h5>
                                         <input type="text"
                                             defaultValue={creature.name}
                                             className={classNames({
@@ -143,32 +175,58 @@ export class InitiativeTracker extends React.Component<Props> {
                                 </div>
 
                                 <div className="col-3">
-                                    <h2 className="text-end form-floating">
-                                        <img src="shield_icon.svg" className="ac-shield-icon"></img>
-                                        <input type="text"
-                                            defaultValue={creature.ac}
-                                            className={classNames({
-                                                "form-input": true,
-                                                "w-100": true,
-                                                "text-end": true,
-                                                "ac-number": true
-                                            })} />
-                                    </h2>
+                                    
+                                    <img src="/close_icon.svg"
+                                            className="btn-close-logo float-end" alt="close icon"
+                                            onClick={(e) => this.removeCreature(e, creature)}></img>
                                 </div>
                             </div>
-                            <h5 className="card-title">
-                            </h5>
 
-                            <div className="row">
-                                <div className="col-10">
+                            <div className={classNames({
+                                                "row": true,
+                                                "pt-2": true,
+                                                "d-none": this.compactView
+                                            })}>
+
+                                <div className="col-8">
                                     <p className="card-text">
                                         <textarea className="creature-notes" defaultValue="Notes" />
                                     </p>
                                 </div>
-                                <div className="col-2">
-                                    <img src="/skull_icon.svg"
-                                        className="btn-skull-logo float-end" alt="skull icon"
-                                        onClick={(e) => this.removeCreature(e, creature)}></img>
+                                <div className="col-4">
+
+                                    <div className="text-end input-group">
+                                        <span className={classNames({
+                                                "input-group-text": true,
+                                                "creature-stats": true,
+                                                "fs-4": true
+                                            })}
+                                            id="inputGroup-sizing-default">AC</span>
+                                        {/* <img src="shield_icon_fill.svg" className="ac-shield-icon"></img> */}
+                                        <input type="number"
+                                            defaultValue={creature.ac}
+                                            className={classNames({
+                                                "form-control": true,
+                                                "creature-stats": true,
+                                                "d-inline": true,
+                                                "text-center": true,
+                                                "fs-4": true
+                                            })} />
+                                    </div>
+
+                                    <div className="text-end input-group">
+                                        <span className="input-group-text creature-stats text-end fs-4" id="inputGroup-sizing-default">HP</span>
+                                        <input type="number"
+                                            defaultValue={creature.hp}
+                                            className={classNames({
+                                                "form-control": true,
+                                                "creature-stats": true,
+                                                "d-inline": true,
+                                                "text-center": true,
+                                                "fs-4": true,
+                                                "text-start": true
+                                            })} />
+                                    </div>
                                 </div>
                             </div>
 
