@@ -1,9 +1,9 @@
-import { HeroNames } from "../../data/heroNames";
-import { Creature } from "../creature";
+import { HeroNames } from '../../data/heroNames';
+import { Creature } from '../creature';
 
 export class Hero extends Creature {
-    constructor(){
-        super();
-        this.name = HeroNames.GetHeroName();
-    }
+  constructor() {
+    super();
+    this.name = HeroNames.GetHeroName();
+  }
 }
