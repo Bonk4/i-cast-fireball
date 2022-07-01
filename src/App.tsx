@@ -13,6 +13,9 @@ import {
   useMantineTheme,
 } from '@mantine/core';
 import DndApp from './components/dndApp/dndApp';
+import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
+import SpacePickleApp from './components/spacePickleApp/spacePickleApp';
+import NavLinks from './components/navLinks';
 
 function App() {
   const theme = useMantineTheme();
@@ -20,7 +23,7 @@ function App() {
 
   return (
     <div className="App">
-      <>
+      <BrowserRouter>
         <MantineProvider
           theme={{ colorScheme: 'dark' }}
           withGlobalStyles
@@ -43,6 +46,7 @@ function App() {
                 width={{ sm: 200, lg: 300 }}
               >
                 {/* <Text>Application navbar</Text> */}
+                <NavLinks />
               </Navbar>
             }
             // aside={
@@ -86,10 +90,15 @@ function App() {
             }
           >
             {/* Page Outlet */}
-            <DndApp />
+            <Routes>
+              <Route path="/" element={<DndApp />} />
+              <Route path="d20" element={<DndApp />} />
+              <Route path="teams" element={<SpacePickleApp />} />
+            </Routes>
+            {/* End of Page Outlet */}
           </AppShell>
         </MantineProvider>
-      </>
+      </BrowserRouter>
     </div>
   );
 }

@@ -8,14 +8,14 @@ export type InitiativeListProps = {
 const InitiativeList = ({ creatures }: InitiativeListProps) => {
   return (
     <>
-      <ul>
-        {creatures.map((creature) => (
-          <Paper shadow="md" p="md" withBorder>
-            <Title order={2}>{creature.name}</Title>
-            <Text>Initiative: {creature.initiative}</Text>
-          </Paper>
-        ))}
-      </ul>
+      {/* <ul> */}
+      {creatures.map((creature) => (
+        <Paper shadow="sm" radius="md" p="sm" withBorder>
+          <Title order={2}>{creature.name}</Title>
+          <Text>Initiative: {creature.initiative}</Text>
+        </Paper>
+      ))}
+      {/* </ul> */}
     </>
   );
 };

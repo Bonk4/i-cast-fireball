@@ -1,5 +1,5 @@
-import { Creature } from '../../../models/creature';
-import { Custom } from '../../../models/creatures/custom';
+import { Creature } from '../models/creature';
+import { Custom } from '../models/creatures/custom';
 
 declare global {
   interface Array<T> {

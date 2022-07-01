@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Button, Container } from '@mantine/core';
+import { Button, Container, Grid } from '@mantine/core';
 import PartyConfig from './partyConfig/partyConfig';
 import MiscConfig from './miscConfig/miscConfig';
 import VillainConfig from './villainConfig/villainConfig';
@@ -8,6 +8,7 @@ import { Hero } from '../../models/creatures/hero';
 import { Villain } from '../../models/creatures/villain';
 import { Custom } from '../../models/creatures/custom';
 import InitiativeList from './initiativeList/initiativeList';
+import '../../util/creatureSort'; //rollForInitiative
 
 const DndApp = () => {
   const [initiative, updateInitiative] = useState(new Array<Creature>(0));
@@ -32,13 +33,22 @@ const DndApp = () => {
           },
         })}
       >
-        <PartyConfig heroes={heroes} updateHeroes={updateHeroes} />
-        <VillainConfig villains={villains} updateVillains={updateVillains} />
-        <MiscConfig misc={misc} updateMisc={updateMisc} />
-
-        <Button onClick={rollForInitiative}></Button>
-
-        <InitiativeList creatures={initiative}></InitiativeList>
+        <Grid>
+          <Grid.Col span={6}>
+            <PartyConfig heroes={heroes} updateHeroes={updateHeroes} />
+            <VillainConfig
+              villains={villains}
+              updateVillains={updateVillains}
+            />
+            <MiscConfig misc={misc} updateMisc={updateMisc} />
+            <Button color={'red'} size={'lg'} onClick={rollForInitiative}>
+              Roll for Initiative
+            </Button>
+          </Grid.Col>
+          <Grid.Col span={6}>
+            <InitiativeList creatures={initiative} />
+          </Grid.Col>
+        </Grid>
       </Container>
     </>
   );

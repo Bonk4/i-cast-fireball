@@ -1,4 +1,5 @@
-import { Textarea } from '@mantine/core';
+import { Group, SegmentedControl, Space, Textarea, Title } from '@mantine/core';
+import { useState } from 'react';
 import { Villain } from '../../../models/creatures/villain';
 
 export type VillainConfigProps = {
@@ -7,6 +8,7 @@ export type VillainConfigProps = {
 };
 
 const VillainConfig = ({ villains, updateVillains }: VillainConfigProps) => {
+  const [editorType, updateEditorType] = useState('quick');
   const updateVillainsFromHeroInits = (e: any) => {
     let newVillains: Villain[] = [];
     if (e.target.value !== undefined && e.target.value !== '') {
@@ -26,9 +28,20 @@ const VillainConfig = ({ villains, updateVillains }: VillainConfigProps) => {
 
   return (
     <>
+      <Group position="apart" grow>
+        <Title order={2}>Villains</Title>
+        <SegmentedControl
+          data={[
+            { label: 'Quick', value: 'quick' },
+            { label: 'Custom', value: 'custom' },
+          ]}
+          value={editorType}
+          onChange={updateEditorType}
+        />
+      </Group>
+      <Space h={'md'} />
       <Textarea
         placeholder="3, 14, 20*..."
-        label="Villain Initiatives"
         onChange={updateVillainsFromHeroInits}
       />
 
