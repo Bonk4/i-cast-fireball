@@ -13,6 +13,11 @@
   }
 }
 
+/* Navbar */
+a:link {
+  text-decoration: none;
+}
+
 /* D&D */
 .init-hero {
   background-color: #084298 !important;

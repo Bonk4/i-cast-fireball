@@ -42,11 +42,7 @@ const NavLinks = () => {
             })}
           >
             <Group>
-              {/* <ThemeIcon color={color} variant="light">
-                
-              </ThemeIcon> */}
-
-              <Text size="lg" underline={false}>
+              <Text className="navlinks" size="lg" underline={false}>
                 {link.displayName}
               </Text>
             </Group>

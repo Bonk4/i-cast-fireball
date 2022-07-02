@@ -4,12 +4,16 @@ import {
   AppShell,
   Aside,
   Burger,
+  Divider,
   Footer,
+  Group,
   Header,
   MantineProvider,
   MediaQuery,
   Navbar,
+  Space,
   Text,
+  Title,
   useMantineTheme,
 } from '@mantine/core';
 import DndApp from './components/dndApp/dndApp';
@@ -45,48 +49,18 @@ function App() {
                 hidden={!opened}
                 width={{ sm: 200, lg: 300 }}
               >
-                {/* <Text>Application navbar</Text> */}
-                <NavLinks />
+                <Navbar.Section>
+                  <Group position="center">
+                    <Title order={2}>I Cast Fireball!</Title>
+                  </Group>
+                  <Space h={'md'} />
+                  <Divider size={'sm'} />
+                  <Space h={'md'} />
+                </Navbar.Section>
+                <Navbar.Section className="navlinks">
+                  <NavLinks />
+                </Navbar.Section>
               </Navbar>
-            }
-            // aside={
-            //   <MediaQuery smallerThan="sm" styles={{ display: 'none' }}>
-            //     <Aside
-            //       p="md"
-            //       hiddenBreakpoint="sm"
-            //       width={{ sm: 200, lg: 300 }}
-            //     >
-            //       {/* <Text>Application sidebar</Text> */}
-            //     </Aside>
-            //   </MediaQuery>
-            // }
-            // footer={
-            //   <Footer height={60} p="md">
-            //     Application footer
-            //   </Footer>
-            // }
-            header={
-              <Header height={70} p="md">
-                <div
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    height: '100%',
-                  }}
-                >
-                  <MediaQuery largerThan="sm" styles={{ display: 'none' }}>
-                    <Burger
-                      opened={opened}
-                      onClick={() => setOpened((o) => !o)}
-                      size="sm"
-                      color={theme.colors.gray[6]}
-                      mr="xl"
-                    />
-                  </MediaQuery>
-
-                  <Text>I Cast Fireball!</Text>
-                </div>
-              </Header>
             }
           >
             {/* Page Outlet */}
