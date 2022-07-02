@@ -41,7 +41,12 @@ const DndApp = () => {
               updateVillains={updateVillains}
             />
             <MiscConfig misc={misc} updateMisc={updateMisc} />
-            <Button color={'red'} size={'lg'} onClick={rollForInitiative}>
+            <Button
+              variant="gradient"
+              gradient={{ from: 'orange', to: 'red' }}
+              size={'lg'}
+              onClick={rollForInitiative}
+            >
               Roll for Initiative
             </Button>
           </Grid.Col>
