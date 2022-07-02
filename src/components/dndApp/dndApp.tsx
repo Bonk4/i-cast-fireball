@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Button, Container, Grid } from '@mantine/core';
+import { Accordion, Button, Container, Grid, Space } from '@mantine/core';
 import PartyConfig from './partyConfig/partyConfig';
 import MiscConfig from './miscConfig/miscConfig';
 import VillainConfig from './villainConfig/villainConfig';
@@ -26,35 +26,44 @@ const DndApp = () => {
 
   return (
     <>
-      <Container
+      <Grid
+        justify="space-around"
         styles={(theme) => ({
           main: {
             backgroundColor: theme.colors.dark[8],
           },
         })}
       >
-        <Grid>
-          <Grid.Col span={6}>
-            <PartyConfig heroes={heroes} updateHeroes={updateHeroes} />
-            <VillainConfig
-              villains={villains}
-              updateVillains={updateVillains}
-            />
-            <MiscConfig misc={misc} updateMisc={updateMisc} />
-            <Button
-              variant="gradient"
-              gradient={{ from: 'orange', to: 'red' }}
-              size={'lg'}
-              onClick={rollForInitiative}
-            >
-              Roll for Initiative
-            </Button>
-          </Grid.Col>
-          <Grid.Col span={6}>
-            <InitiativeList creatures={initiative} />
-          </Grid.Col>
-        </Grid>
-      </Container>
+        <Grid.Col span={6}>
+          <Accordion multiple>
+            <Accordion.Item label="Heroes">
+              <PartyConfig heroes={heroes} updateHeroes={updateHeroes} />
+            </Accordion.Item>
+            <Accordion.Item label="Villains">
+              <VillainConfig
+                villains={villains}
+                updateVillains={updateVillains}
+              />
+            </Accordion.Item>
+            <Accordion.Item label="Custom">
+              <MiscConfig misc={misc} updateMisc={updateMisc} />
+            </Accordion.Item>
+          </Accordion>
+          <Space h={'lg'} />
+          <Button
+            variant="gradient"
+            gradient={{ from: 'orange', to: 'red' }}
+            size={'lg'}
+            onClick={rollForInitiative}
+          >
+            Roll for Initiative
+          </Button>
+        </Grid.Col>
+        <Grid.Col span={4}>
+          <InitiativeList creatures={initiative} />
+        </Grid.Col>
+        <Grid.Col span={1}></Grid.Col>
+      </Grid>
     </>
   );
 };

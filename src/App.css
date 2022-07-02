@@ -13,6 +13,20 @@
   }
 }
 
+/* D&D */
+.init-hero {
+  background-color: #084298 !important;
+}
+
+.init-villain {
+  background-color: #842029 !important;
+}
+
+.init-custom {
+  background-color: #495057 !important;
+}
+
+/* Space Pickle */
 .init-light-organism {
   background-color: #084298 !important;
 }

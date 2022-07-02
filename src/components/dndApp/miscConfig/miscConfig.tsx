@@ -1,4 +1,15 @@
-import { Group, SegmentedControl, Space, Textarea, Title } from '@mantine/core';
+import {
+  Button,
+  Checkbox,
+  Divider,
+  Group,
+  NumberInput,
+  SegmentedControl,
+  Space,
+  Textarea,
+  TextInput,
+  Title,
+} from '@mantine/core';
 import { useState } from 'react';
 import { Custom } from '../../../models/creatures/custom';
 
@@ -8,44 +19,101 @@ export type MiscConfigProps = {
 };
 
 const MiscConfig = ({ misc, updateMisc }: MiscConfigProps) => {
-  const [editorType, updateEditorType] = useState('quick');
-  const updateVillainsFromHeroInits = (e: any) => {
-    let newCustoms: Custom[] = [];
-    if (e.target.value !== undefined && e.target.value !== '') {
-      let rolls = e.target.value.split(/[\s,;]+/);
+  const addCustom = () => {
+    let newMisc = misc.slice();
+    newMisc.push(new Custom());
+    updateMisc(newMisc);
+  };
 
-      for (let i = 0; i < rolls.length; i++) {
-        const roll = parseInt(rolls[i].toString());
-        let newMisc = new Custom();
+  const clearCustomes = () => {
+    updateMisc(new Array<Custom>());
+  };
 
-        newMisc.initiative = roll;
-        newCustoms.push(newMisc);
-      }
+  const updateName = (e: any, index: number) => {
+    let newMisc = misc.slice();
+    newMisc[index].name = e.target.value;
+    updateMisc(newMisc);
+  };
 
-      updateMisc(newCustoms);
-    }
+  const updateInitiative = (e: any, index: number) => {
+    let newMisc = misc.slice();
+    newMisc[index].initiative = e;
+    updateMisc(newMisc);
+  };
+
+  const updateCustomInitiative = (e: any, index: number) => {
+    let newMisc = misc.slice();
+    newMisc[index].goesFirst = e === 'first';
+    newMisc[index].goesLast = e === 'last';
+    updateMisc(newMisc);
+  };
+
+  const removeCustom = (e: any, index: number) => {
+    let newMisc = misc.slice();
+    newMisc.splice(index, 1);
+    updateMisc(newMisc);
+  };
+  const clearMisc = () => {
+    updateMisc(new Array<Custom>());
   };
 
   return (
     <>
+      <Space h={'md'} />
       <Group position="apart" grow>
-        <Title order={2}>Custom</Title>
-        <SegmentedControl
-          data={[
-            { label: 'Quick', value: 'quick' },
-            { label: 'Custom', value: 'custom' },
-          ]}
-          value={editorType}
-          onChange={updateEditorType}
-        />
+        <Button color="red" onClick={clearMisc} uppercase>
+          Clear
+        </Button>
+        <Button onClick={addCustom} uppercase>
+          Add
+        </Button>
       </Group>
       <Space h={'md'} />
-      <Textarea
-        placeholder="3, 14, 20*..."
-        onChange={updateVillainsFromHeroInits}
-      />
+      <>
+        {misc.map((misc, i) => (
+          <>
+            <Space h={'sm'} />
+            <Divider size={'sm'} />
+            <Space h={'sm'} />
 
-      <p>{misc.map((custom) => custom.name + ' ')}</p>
+            <Group position="center" grow>
+              <TextInput
+                label="Custom"
+                value={misc.name}
+                onChange={(e: any) => updateName(e, i)}
+              ></TextInput>
+              <NumberInput
+                defaultValue={misc.initiative}
+                value={misc.initiative}
+                placeholder="2"
+                label="Initiative"
+                onChange={(e) => updateInitiative(e, i)}
+              />
+            </Group>
+            <Space h={'sm'} />
+            <Group position="apart">
+              <SegmentedControl
+                data={[
+                  { label: 'Always First', value: 'first' },
+                  { label: 'Always Last', value: 'last' },
+                  { label: 'Initiative', value: 'init' },
+                ]}
+                onChange={(e) => updateCustomInitiative(e, i)}
+              />
+              <Button
+                color="red"
+                radius="xl"
+                size="sm"
+                uppercase
+                onClick={(e: any) => removeCustom(e, i)}
+              >
+                Remove
+              </Button>
+            </Group>
+            <Space h={'sm'} />
+          </>
+        ))}
+      </>
     </>
   );
 };
