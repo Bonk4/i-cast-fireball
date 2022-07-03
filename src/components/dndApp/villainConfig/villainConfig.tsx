@@ -115,9 +115,14 @@ const VillainConfig = ({
             Clear
           </Button>
         ) : (
-          <Button onClick={addVillain} uppercase>
-            Add
-          </Button>
+          <Group position="left">
+            <Button color="red" onClick={clearVillains} uppercase>
+              Clear
+            </Button>
+            <Button onClick={addVillain} uppercase>
+              Add
+            </Button>
+          </Group>
         )}
         <SegmentedControl
           data={[

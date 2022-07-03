@@ -60,7 +60,7 @@ const MiscConfig = ({ misc, updateMisc }: MiscConfigProps) => {
   return (
     <>
       <Space h={'md'} />
-      <Group position="apart" grow>
+      <Group>
         <Button color="red" onClick={clearMisc} uppercase>
           Clear
         </Button>

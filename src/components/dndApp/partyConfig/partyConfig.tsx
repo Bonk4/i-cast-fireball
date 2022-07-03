@@ -100,10 +100,17 @@ const PartyConfig = ({ heroes, updateHeroes }: PartyConfigProps) => {
             Clear
           </Button>
         ) : (
-          <Button onClick={addHero} uppercase>
-            Add
-          </Button>
+          <Group position="left">
+            <Button color="red" onClick={clearHeroes} uppercase>
+              Clear
+            </Button>
+
+            <Button onClick={addHero} uppercase>
+              Add
+            </Button>
+          </Group>
         )}
+
         <SegmentedControl
           data={[
             { label: 'Quick', value: 'quick' },
