@@ -77,7 +77,7 @@ const DndApp = () => {
             </Button>
           </Group>
           <Space h={'lg'} />
-          <InitiativeList creatures={initiative} />
+          <InitiativeList creatures={initiative} updateCreatures={updateInitiative} rollForMe={rollForMe} />
         </Grid.Col>
         <Grid.Col span={1}></Grid.Col>
       </Grid>

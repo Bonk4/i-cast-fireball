@@ -1,6 +1,7 @@
 import {
   Button,
   CloseButton,
+  Divider,
   Group,
   NumberInput,
   Space,
@@ -60,8 +61,10 @@ const OrganismConfig = ({
         <Title order={2}>{lightSide ? 'Light Side' : 'Dark Side'}</Title>
       </Group>
       <Space h={'md'} />
-      <Group position="center" spacing="lg" grow>
+      <Group position="center" spacing="lg">
         <Button onClick={addLightSide} uppercase>
+          <i className="fa-solid fa-circle-plus"></i>
+          <Space w={'sm'} />
           Add
         </Button>
         <Button color={'red'} onClick={clearLightSide} uppercase>
@@ -73,13 +76,15 @@ const OrganismConfig = ({
 
       {organisms.map((org, i) => (
         <>
-          <Group position="center" grow>
+          {i === 0 ? <></> : <><Space h={'sm'} /><Divider size={'sm'} /><Space h={'sm'} /></>}
+          <Group position="center">
             <NumberInput
               defaultValue={org.success}
               value={org.success}
               placeholder="2"
               label="Success"
               onChange={(e) => updateSuccess(e, i)}
+              className="organism-input"
             />
 
             <NumberInput
@@ -88,6 +93,7 @@ const OrganismConfig = ({
               onChange={(e) => updateAdv(e, i)}
               placeholder="2"
               label="Advantage"
+              className="organism-input"
             />
 
             <NumberInput
@@ -96,16 +102,18 @@ const OrganismConfig = ({
               placeholder="2"
               label="Triumph"
               onChange={(e) => updateTriumph(e, i)}
+              className="organism-input"
             />
 
             <Button
               color="red"
               radius="xl"
-              size="sm"
+              variant='outline'
+              compact
               uppercase
               onClick={(e: any) => removeOrganism(e, i)}
             >
-              Remove
+              <i className="fa-solid fa-xmark"></i>
             </Button>
           </Group>
           <Space h={'md'} />

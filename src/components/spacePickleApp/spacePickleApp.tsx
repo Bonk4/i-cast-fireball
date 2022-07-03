@@ -66,7 +66,7 @@ const SpacePickleApp = () => {
             </Button>
           </Group>
           <Space h={'lg'} />
-          <InitiativeList organisms={initiative} />
+          <InitiativeList organisms={initiative} updateOrganisms={updateInitiative} />
         </Grid.Col>
         <Grid.Col span={1}></Grid.Col>
       </Grid>

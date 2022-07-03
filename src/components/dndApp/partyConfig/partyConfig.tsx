@@ -145,7 +145,7 @@ const PartyConfig = ({ heroes, updateHeroes }: PartyConfigProps) => {
                 />
               </Group>
               <Space h={'sm'} />
-              <Group position="center" grow>
+              <Group position="apart">
                 <Checkbox
                   label="Critical Success?"
                   value={hero.critSuccess.toString()}
@@ -163,9 +163,10 @@ const PartyConfig = ({ heroes, updateHeroes }: PartyConfigProps) => {
                   radius="xl"
                   size="sm"
                   uppercase
+                  variant="outline"
                   onClick={(e: any) => removeHero(e, i)}
                 >
-                  Remove
+                  <i className="fa-solid fa-xmark"></i>
                 </Button>
               </Group>
               <Space h={'lg'} />

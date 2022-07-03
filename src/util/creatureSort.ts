@@ -20,6 +20,8 @@ Array.prototype.rollForInitiative = function (
         let villain = this[i];
         villain.roll = dice.d20();
         villain.initiative = villain.roll + villain.bonus;
+        villain.critFail = villain.roll === 1;
+        villain.critSuccess = villain.roll === 20;
       }
     }
   }

@@ -1,5 +1,7 @@
 import {
+  Button,
   Container,
+  Group,
   Paper,
   SimpleGrid,
   Skeleton,
@@ -11,9 +13,16 @@ import { Organism } from '../../../models/organism';
 
 export type InitiativeListProps = {
   organisms: Organism[];
+  updateOrganisms: Function;
 };
 
-const InitiativeList = ({ organisms }: InitiativeListProps) => {
+const InitiativeList = ({ organisms, updateOrganisms }: InitiativeListProps) => {
+  const removeOrganism = (index: number) => {
+    let newOrganisms = organisms.slice();
+    newOrganisms.splice(index, 1);
+    updateOrganisms(newOrganisms);
+  }
+
   return organisms.length === 0 ? (
     <>
       <Skeleton height={50} circle mb="xl" />
@@ -32,7 +41,7 @@ const InitiativeList = ({ organisms }: InitiativeListProps) => {
           },
         })}
       >
-        {organisms.map((organism) => (
+        {organisms.map((organism, i) => (
           <>
             <Paper
               className={
@@ -45,9 +54,20 @@ const InitiativeList = ({ organisms }: InitiativeListProps) => {
               p="md"
               withBorder
             >
-              <Title order={2}>
-                {organism.lightSide ? 'Light Side' : 'Dark Side'}
-              </Title>
+              <Group position='apart'>
+                <div></div>
+                <Title order={2}>
+                  {organism.lightSide ? 'Light' : 'Dark'}
+                </Title>
+                <Button
+                  radius={'xl'}
+                  compact
+                  variant='outline'
+                  color={'gray'}
+                  onClick={(e: any) => removeOrganism(i)}>
+                  <i className="fa-solid fa-xmark"></i>
+                </Button>
+              </Group>
               <Text>{`${organism.success} Success | ${organism.advantage} Advantage | ${organism.triumph} Triumph`}</Text>
             </Paper>
           </>

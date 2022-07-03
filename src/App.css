@@ -18,6 +18,7 @@
   margin-right: 10px;
   color: orange;
 }
+
 a:link {
   text-decoration: none;
 }
@@ -36,6 +37,10 @@ a:link {
 }
 
 /* Space Pickle */
+.organism-input {
+  width: 125px;
+}
+
 .init-light-organism {
   background-color: #084298 !important;
 }

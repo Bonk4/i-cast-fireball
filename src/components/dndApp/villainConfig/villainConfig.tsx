@@ -158,7 +158,7 @@ const VillainConfig = ({
                 />
               </Group>
               <Space h={'sm'} />
-              <Group position="center" grow>
+              <Group position="apart">
                 <Checkbox
                   label="Critical Success?"
                   value={villain.critSuccess.toString()}
@@ -176,9 +176,10 @@ const VillainConfig = ({
                   radius="xl"
                   size="sm"
                   uppercase
+                  variant="outline"
                   onClick={(e: any) => removevillain(e, i)}
                 >
-                  Remove
+                  <i className="fa-solid fa-xmark"></i>
                 </Button>
               </Group>
               <Space h={'lg'} />
@@ -193,7 +194,7 @@ const VillainConfig = ({
               <Divider size={'sm'} />
               <Space h={'sm'} />
 
-              <Group position="center" grow>
+              <Group position="center">
                 <TextInput
                   label="Villain"
                   value={villain.name}
@@ -208,12 +209,13 @@ const VillainConfig = ({
                 />
                 <Button
                   color="red"
-                  radius="sm"
-                  size="lg"
+                  radius="xl"
+                  size="sm"
                   uppercase
+                  variant='outline'
                   onClick={(e: any) => removevillain(e, i)}
                 >
-                  Remove
+                  <i className="fa-solid fa-xmark"></i>
                 </Button>
               </Group>
             </>
