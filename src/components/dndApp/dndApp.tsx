@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Accordion, Button, Container, Grid, Group, Space } from '@mantine/core';
+import { Accordion, Button, Grid, Group, Space } from '@mantine/core';
 import PartyConfig from './partyConfig/partyConfig';
 import MiscConfig from './miscConfig/miscConfig';
 import VillainConfig from './villainConfig/villainConfig';
@@ -62,12 +62,12 @@ const DndApp = () => {
           <Group position='apart'>
             <Button
               variant="gradient"
-              gradient={{ from: 'orange', to: 'red' }}
+              gradient={{ from: 'red', to: 'yellow' }}
               size={'lg'}
               onClick={rollForInitiative}
             >
               <i className="fa-solid fa-fire nav-icon"></i>
-              Roll for Initiative!
+              Roll For Initiative!
             </Button>
             <Button
               color="gray"

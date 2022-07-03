@@ -1,4 +1,4 @@
-import { Group, Text, ThemeIcon, UnstyledButton } from '@mantine/core';
+import { Group, Text, UnstyledButton } from '@mantine/core';
 import { Link } from 'react-router-dom';
 
 export class NavLink {
@@ -13,12 +13,11 @@ export class NavLink {
 }
 
 const NavLinks = () => {
-  const color: string = 'dark';
   const links = [
     new NavLink(
       'Dungeons & Dragons',
       'd20',
-      '<i class="fa-solid fa-shield"></i>',
+      '<i class="fa-solid fa-dice-d20"></i>',
     ),
     new NavLink(
       'Space Pickle',
