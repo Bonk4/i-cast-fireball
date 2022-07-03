@@ -1,4 +1,4 @@
-import { Button, Container, Divider, Grid, Space } from '@mantine/core';
+import { Button, Container, Divider, Grid, Group, Space } from '@mantine/core';
 import { useState } from 'react';
 import { Organism } from '../../models/organism';
 import '../../util/organismSort';
@@ -15,6 +15,10 @@ const SpacePickleApp = () => {
     updateInitiative(newInitiative);
   };
 
+  const clearInitiative = () => {
+    updateInitiative(new Array<Organism>());
+  }
+
   return (
     <>
       <Grid
@@ -25,8 +29,7 @@ const SpacePickleApp = () => {
           },
         })}
       >
-        <Grid.Col span={1}></Grid.Col>
-        <Grid.Col span={4}>
+        <Grid.Col span={6}>
           <OrganismConfig
             organisms={lightSide}
             updateOrganisms={updateLightSide}
@@ -42,20 +45,27 @@ const SpacePickleApp = () => {
             updateOrganisms={updateDarkSide}
             lightSide={false}
           />
-
-          <Space h={'lg'} />
-
-          <Button
-            variant="gradient"
-            gradient={{ from: 'teal', to: 'blue', deg: 60 }}
-            size={'lg'}
-            onClick={rollForInitiativeInSpace}
-          >
-            Roll For Initiative
-          </Button>
         </Grid.Col>
         <Grid.Col span={1}></Grid.Col>
         <Grid.Col span={4}>
+          <Group position="apart">
+            <Button
+              variant="gradient"
+              gradient={{ from: 'teal', to: 'blue', deg: 60 }}
+              size={'lg'}
+              onClick={rollForInitiativeInSpace}
+            >
+              <i className="fa-solid fa-fire nav-icon"></i>
+              Roll For Initiative!
+            </Button>
+            <Button
+              color="gray"
+              size='lg'
+              onClick={clearInitiative}>
+              Clear
+            </Button>
+          </Group>
+          <Space h={'lg'} />
           <InitiativeList organisms={initiative} />
         </Grid.Col>
         <Grid.Col span={1}></Grid.Col>

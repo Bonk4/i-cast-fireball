@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Accordion, Button, Container, Grid, Space } from '@mantine/core';
+import { Accordion, Button, Container, Grid, Group, Space } from '@mantine/core';
 import PartyConfig from './partyConfig/partyConfig';
 import MiscConfig from './miscConfig/miscConfig';
 import VillainConfig from './villainConfig/villainConfig';
@@ -23,6 +23,10 @@ const DndApp = () => {
       .slice();
 
     updateInitiative(newInit);
+  };
+
+  const clearInitiative = (e: any) => {
+    updateInitiative(new Array<Creature>());
   };
 
   return (
@@ -52,18 +56,27 @@ const DndApp = () => {
               <MiscConfig misc={misc} updateMisc={updateMisc} />
             </Accordion.Item>
           </Accordion>
-          <Space h={'lg'} />
-          <Button
-            variant="gradient"
-            gradient={{ from: 'orange', to: 'red' }}
-            size={'lg'}
-            onClick={rollForInitiative}
-          >
-            <i className="fa-solid fa-swords"></i>
-            Roll for Initiative
-          </Button>
         </Grid.Col>
+        <Grid.Col span={1}></Grid.Col>
         <Grid.Col span={4}>
+          <Group position='apart'>
+            <Button
+              variant="gradient"
+              gradient={{ from: 'orange', to: 'red' }}
+              size={'lg'}
+              onClick={rollForInitiative}
+            >
+              <i className="fa-solid fa-fire nav-icon"></i>
+              Roll for Initiative!
+            </Button>
+            <Button
+              color="gray"
+              size={'lg'}
+              onClick={clearInitiative}>
+              Clear
+            </Button>
+          </Group>
+          <Space h={'lg'} />
           <InitiativeList creatures={initiative} />
         </Grid.Col>
         <Grid.Col span={1}></Grid.Col>

@@ -1,4 +1,4 @@
-import { Navbar, Group, Title, Space, Divider } from '@mantine/core';
+import { Navbar, Group, Text, Title, Space, Divider } from '@mantine/core';
 import NavLinks from './navLinks';
 
 const NavBar = () => {
@@ -19,8 +19,13 @@ const NavBar = () => {
         <Divider size={'sm'} />
         <Space h={'md'} />
       </Navbar.Section>
-      <Navbar.Section className="navlinks">
+      <Navbar.Section className="navlinks" grow mt="md">
         <NavLinks />
+      </Navbar.Section>
+      <Navbar.Section>
+        <Divider size={'sm'} />
+        <Space h={'md'} />
+        <Text>Simple Initiative Tracker</Text>
       </Navbar.Section>
     </Navbar>
   );
