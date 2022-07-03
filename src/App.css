@@ -14,6 +14,10 @@
 }
 
 /* Navbar */
+.nav-icon {
+  margin-right: 10px;
+  color: orange;
+}
 a:link {
   text-decoration: none;
 }

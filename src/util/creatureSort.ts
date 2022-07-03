@@ -1,13 +1,29 @@
 import { Creature } from '../models/creature';
 import { Custom } from '../models/creatures/custom';
+import { Villain } from '../models/creatures/villain';
+import { DiceRoller } from './diceRoller';
 
 declare global {
   interface Array<T> {
-    rollForInitiative(): Array<Creature>;
+    rollForInitiative(rollForMe: boolean): Array<Creature>;
   }
 }
 
-Array.prototype.rollForInitiative = function (): Array<Creature> {
+Array.prototype.rollForInitiative = function (
+  rollForMe: boolean,
+): Array<Creature> {
+  const dice = new DiceRoller();
+
+  if (rollForMe) {
+    for (let i = 0; i < this.length; i++) {
+      if (this[i] instanceof Villain) {
+        let villain = this[i];
+        villain.roll = dice.d20();
+        villain.initiative = villain.roll + villain.bonus;
+      }
+    }
+  }
+
   return this.sort(
     // sort initiative score high to low
     function (a, b) {

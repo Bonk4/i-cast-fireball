@@ -15,12 +15,13 @@ const DndApp = () => {
   const [heroes, updateHeroes] = useState(new Array<Hero>(0));
   const [villains, updateVillains] = useState(new Array<Villain>(0));
   const [misc, updateMisc] = useState(new Array<Custom>(0));
-  const [rollForMe, updateRfm] = useState(false);
+  const [rollForMe, updateRollForMe] = useState(false);
 
   const rollForInitiative = (e: any) => {
-    console.log('rollForInitiative() called!');
-    let newInit = [...heroes, ...villains, ...misc].rollForInitiative();
-    console.log(newInit);
+    let newInit = [...heroes, ...villains, ...misc]
+      .rollForInitiative(rollForMe)
+      .slice();
+
     updateInitiative(newInit);
   };
 
@@ -43,6 +44,8 @@ const DndApp = () => {
               <VillainConfig
                 villains={villains}
                 updateVillains={updateVillains}
+                rollForMe={rollForMe}
+                updateRollForMe={updateRollForMe}
               />
             </Accordion.Item>
             <Accordion.Item label="Custom">
@@ -56,6 +59,7 @@ const DndApp = () => {
             size={'lg'}
             onClick={rollForInitiative}
           >
+            <i className="fa-solid fa-swords"></i>
             Roll for Initiative
           </Button>
         </Grid.Col>

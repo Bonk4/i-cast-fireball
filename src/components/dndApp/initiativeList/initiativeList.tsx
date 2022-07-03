@@ -46,6 +46,10 @@ const InitiativeList = ({ creatures }: InitiativeListProps) => {
               <Text>
                 {`Initiative: ${creature.initiative}${
                   creature.critFail || creature.critSuccess ? '*' : ''
+                } ${
+                  creature instanceof Villain
+                    ? ` | Natural ${creature.roll}`
+                    : ''
                 }`}
               </Text>
             </Paper>

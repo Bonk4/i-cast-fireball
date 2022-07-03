@@ -2,19 +2,29 @@ import { Group, Text, ThemeIcon, UnstyledButton } from '@mantine/core';
 import { Link } from 'react-router-dom';
 
 export class NavLink {
-  constructor(displayName: string, url: string) {
+  constructor(displayName: string, url: string, logo?: string) {
     this.displayName = displayName;
     this.url = url;
+    if (logo) this.logo = logo;
   }
   displayName: string = '';
   url: string = '';
+  logo: string = '';
 }
 
 const NavLinks = () => {
   const color: string = 'dark';
   const links = [
-    new NavLink('Dungeons & Dragons', 'd20'),
-    new NavLink('Space Pickle', 'teams'),
+    new NavLink(
+      'Dungeons & Dragons',
+      'd20',
+      '<i class="fa-solid fa-shield"></i>',
+    ),
+    new NavLink(
+      'Space Pickle',
+      'teams',
+      '<i class="fa-solid fa-crosshairs"></i>',
+    ),
   ];
 
   return (
@@ -42,6 +52,7 @@ const NavLinks = () => {
             })}
           >
             <Group>
+              <div dangerouslySetInnerHTML={{ __html: link.logo }}></div>
               <Text className="navlinks" size="lg" underline={false}>
                 {link.displayName}
               </Text>

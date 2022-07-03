@@ -16,10 +16,23 @@ import { Villain } from '../../../models/creatures/villain';
 export type VillainConfigProps = {
   villains: Villain[];
   updateVillains: Function;
+  rollForMe: boolean;
+  updateRollForMe: Function;
 };
 
-const VillainConfig = ({ villains, updateVillains }: VillainConfigProps) => {
+const VillainConfig = ({
+  villains,
+  updateVillains,
+  rollForMe,
+  updateRollForMe,
+}: VillainConfigProps) => {
   const [editorType, updateEditorType] = useState('quick');
+
+  const updateEditor = (e: any) => {
+    updateRollForMe(e === 'roll');
+    updateEditorType(e);
+  };
+
   const updateVillainsFromvillainInits = (e: any) => {
     let newVillains: Villain[] = [];
     if (e.target.value !== undefined && e.target.value !== '') {
@@ -63,6 +76,12 @@ const VillainConfig = ({ villains, updateVillains }: VillainConfigProps) => {
     updateVillains(newVillains);
   };
 
+  const updateInitiativeBonus = (e: any, index: number) => {
+    let newVillains = villains.slice();
+    newVillains[index].bonus = e;
+    updateVillains(newVillains);
+  };
+
   const updateCriticalSuccess = (e: any, index: number) => {
     let newVillains = villains.slice();
     villains[index].critSuccess = e.target.checked;
@@ -90,7 +109,7 @@ const VillainConfig = ({ villains, updateVillains }: VillainConfigProps) => {
   return (
     <>
       <Space h={'md'} />
-      <Group position="apart" grow>
+      <Group position="apart">
         {editorType === 'quick' ? (
           <Button color="red" onClick={clearVillains} uppercase>
             Clear
@@ -104,9 +123,10 @@ const VillainConfig = ({ villains, updateVillains }: VillainConfigProps) => {
           data={[
             { label: 'Quick', value: 'quick' },
             { label: 'Custom', value: 'custom' },
+            { label: 'Roll For Me', value: 'roll' },
           ]}
           value={editorType}
-          onChange={updateEditorType}
+          onChange={(e) => updateEditor(e)}
         />
       </Group>
       <Space h={'md'} />
@@ -115,15 +135,9 @@ const VillainConfig = ({ villains, updateVillains }: VillainConfigProps) => {
         <>
           {villains.map((villain, i) => (
             <>
-              {i === 0 ? (
-                <></>
-              ) : (
-                <>
-                  <Space h={'sm'} />
-                  <Divider size={'sm'} />
-                  <Space h={'sm'} />
-                </>
-              )}
+              <Space h={'sm'} />
+              <Divider size={'sm'} />
+              <Space h={'sm'} />
               <Group position="center" grow>
                 <TextInput
                   label="Villain"
@@ -163,6 +177,40 @@ const VillainConfig = ({ villains, updateVillains }: VillainConfigProps) => {
                 </Button>
               </Group>
               <Space h={'lg'} />
+            </>
+          ))}
+        </>
+      ) : editorType === 'roll' ? (
+        <>
+          {villains.map((villain, i) => (
+            <>
+              <Space h={'sm'} />
+              <Divider size={'sm'} />
+              <Space h={'sm'} />
+
+              <Group position="center" grow>
+                <TextInput
+                  label="Villain"
+                  value={villain.name}
+                  onChange={(e: any) => updateName(e, i)}
+                />
+                <NumberInput
+                  defaultValue={villain.bonus}
+                  value={villain.bonus}
+                  placeholder="2"
+                  label="Init Bonus"
+                  onChange={(e) => updateInitiativeBonus(e, i)}
+                />
+                <Button
+                  color="red"
+                  radius="sm"
+                  size="lg"
+                  uppercase
+                  onClick={(e: any) => removevillain(e, i)}
+                >
+                  Remove
+                </Button>
+              </Group>
             </>
           ))}
         </>

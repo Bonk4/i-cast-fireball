@@ -94,7 +94,7 @@ const PartyConfig = ({ heroes, updateHeroes }: PartyConfigProps) => {
   return (
     <>
       <Space h={'sm'} />
-      <Group position="apart" grow>
+      <Group position="apart">
         {editorType === 'quick' ? (
           <Button color="red" onClick={clearHeroes} uppercase>
             Clear
@@ -119,15 +119,10 @@ const PartyConfig = ({ heroes, updateHeroes }: PartyConfigProps) => {
         <>
           {heroes.map((hero, i) => (
             <>
-              {i === 0 ? (
-                <></>
-              ) : (
-                <>
-                  <Space h={'sm'} />
-                  <Divider size={'sm'} />
-                  <Space h={'sm'} />
-                </>
-              )}
+              <Space h={'sm'} />
+              <Divider size={'sm'} />
+              <Space h={'sm'} />
+
               <Group position="center" grow>
                 <TextInput
                   label="Hero"
