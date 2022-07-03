@@ -11,8 +11,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# [START gae_quickstart_yaml]
 runtime: nodejs16
+env: standard
 handlers:
   # Serve all static files with url ending with a file extension
   - url: /(.*\..+)$
@@ -22,5 +22,3 @@ handlers:
   - url: /.*
     static_files: build/index.html
     upload: build/index.html
-
-# [END gae_quickstart_yaml]
