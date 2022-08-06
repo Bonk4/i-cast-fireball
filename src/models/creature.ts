@@ -12,4 +12,6 @@ export class Creature {
 
   display: boolean = true;
   marked: boolean = false;
+
+  team: number = 0;
 }

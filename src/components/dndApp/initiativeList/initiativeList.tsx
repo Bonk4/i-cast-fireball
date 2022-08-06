@@ -1,5 +1,4 @@
 import { Paper, Title, Text, SimpleGrid, Skeleton, Group, Button } from '@mantine/core';
-import { create } from 'domain';
 import { Creature } from '../../../models/creature';
 import { Hero } from '../../../models/creatures/hero';
 import { Villain } from '../../../models/creatures/villain';
@@ -14,6 +13,12 @@ const InitiativeList = ({ creatures, updateCreatures, rollForMe }: InitiativeLis
   const removeCreature = (index: number) => {
     let newCreatures = creatures.slice();
     newCreatures.splice(index, 1);
+    updateCreatures(newCreatures);
+  }
+
+  const markCreature = (i: number) => {
+    let newCreatures = creatures.slice();
+    newCreatures[i].marked = !newCreatures[i].marked;
     updateCreatures(newCreatures);
   }
 
@@ -39,11 +44,11 @@ const InitiativeList = ({ creatures, updateCreatures, rollForMe }: InitiativeLis
           <>
             <Paper
               className={
-                creature instanceof Hero
+                `${creature instanceof Hero
                   ? 'init-hero'
                   : creature instanceof Villain
                     ? 'init-villain'
-                    : 'init-custom'
+                    : 'init-custom'} ${creature.marked ? 'marked' : ''}`
               }
               shadow="md"
               radius="md"
@@ -51,12 +56,18 @@ const InitiativeList = ({ creatures, updateCreatures, rollForMe }: InitiativeLis
               withBorder
             >
               <Group position='apart'>
-                <div></div>
+                <Button
+                  radius={'xl'}
+                  compact
+                  variant='subtle'
+                  color={'gray'} onClick={() => markCreature(i)}>
+                  <i className="fa-solid fa-bookmark"></i>
+                </Button>
                 <Title order={2}>{creature.name}</Title>
                 <Button
                   radius={'xl'}
                   compact
-                  variant='outline'
+                  variant='subtle'
                   color={'gray'} onClick={() => removeCreature(i)}>
                   <i className="fa-solid fa-xmark"></i>
                 </Button>

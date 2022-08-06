@@ -36,6 +36,63 @@ a:link {
   background-color: #495057 !important;
 }
 
+/* D&D Teams */
+.organism-input {
+  width: 125px;
+}
+
+.init-team-1 {
+  background-color: #1864AB !important;
+}
+
+.init-team-2 {
+  background-color: #862E9C !important;
+}
+
+.init-team-3 {
+  background-color: #C92A2A !important;
+}
+
+.init-team-4 {
+  background-color: #E67700 !important;
+}
+
+.init-team-5 {
+  background-color: #087F5B !important;
+}
+
+.init-team-6 {
+  background-color: #5C940D !important;
+}
+
+.text-team-1 {
+  background-color: #1864AB !important;
+}
+
+.text-team-2 {
+  background-color: #862E9C !important;
+}
+
+.text-team-3 {
+  background-color: #C92A2A !important;
+}
+
+.text-team-4 {
+  background-color: #E67700 !important;
+}
+
+.text-team-5 {
+  background-color: #087F5B !important;
+}
+
+.text-team-6 {
+  background-color: #5C940D !important;
+}
+
+.marked {
+  border: 3px solid #C1C2C5 !important;
+}
+
 /* Space Pickle */
 .organism-input {
   width: 125px;

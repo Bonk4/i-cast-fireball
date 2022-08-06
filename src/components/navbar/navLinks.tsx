@@ -20,6 +20,10 @@ const NavLinks = () => {
       '<i class="fa-solid fa-dice-d20"></i>',
     ),
     new NavLink(
+      'D&D Teams',
+      'd20-teams',
+      '<i class="fa-solid fa-dice-d20"></i>'),
+    new NavLink(
       'Space Pickle',
       'teams',
       '<i class="fa-solid fa-crosshairs"></i>',

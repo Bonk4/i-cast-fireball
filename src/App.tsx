@@ -1,25 +1,15 @@
 import './App.css';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import {
   AppShell,
-  Aside,
-  Burger,
-  Divider,
-  Footer,
-  Group,
-  Header,
   MantineProvider,
-  MediaQuery,
-  Navbar,
-  Space,
-  Text,
-  Title,
   useMantineTheme,
 } from '@mantine/core';
 import DndApp from './components/dndApp/dndApp';
-import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import SpacePickleApp from './components/spacePickleApp/spacePickleApp';
 import NavBar from './components/navbar/navBar';
+import DndTeamsApp from './components/dndTeamsApp/dndTeamsApp';
 
 function App() {
   const theme = useMantineTheme();
@@ -48,6 +38,7 @@ function App() {
             <Routes>
               <Route path="/" element={<DndApp />} />
               <Route path="d20" element={<DndApp />} />
+              <Route path="d20-teams" element={<DndTeamsApp />} />
               <Route path="teams" element={<SpacePickleApp />} />
             </Routes>
             {/* End of Page Outlet */}
