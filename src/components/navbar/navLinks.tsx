@@ -28,6 +28,11 @@ const NavLinks = () => {
       'teams',
       '<i class="fa-solid fa-crosshairs"></i>',
     ),
+    new NavLink(
+      'Perception',
+      'perception',
+      '<i class="fa-solid fa-eye"></i>',
+    ),
   ];
 
   return (

@@ -10,6 +10,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import SpacePickleApp from './components/spacePickleApp/spacePickleApp';
 import NavBar from './components/navbar/navBar';
 import DndTeamsApp from './components/dndTeamsApp/dndTeamsApp';
+import PerceptionApp from './components/perceptionApp/perceptionApp';
 
 function App() {
   const theme = useMantineTheme();
@@ -40,6 +41,7 @@ function App() {
               <Route path="d20" element={<DndApp />} />
               <Route path="d20-teams" element={<DndTeamsApp />} />
               <Route path="teams" element={<SpacePickleApp />} />
+              <Route path="perception" element={<PerceptionApp />} />
             </Routes>
             {/* End of Page Outlet */}
           </AppShell>

@@ -10,6 +10,9 @@ export class Creature {
   critFail: boolean = false;
   critSuccess: boolean = false;
 
+  perception: number = 0;
+  perceptionBonus: number = 0;
+
   display: boolean = true;
   marked: boolean = false;
 
