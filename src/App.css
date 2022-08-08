@@ -105,3 +105,8 @@ a:link {
 .init-dark-organism {
   background-color: #842029 !important;
 }
+
+/* Skill Checks */
+.skillCheckResult {
+  width: 35px;
+}

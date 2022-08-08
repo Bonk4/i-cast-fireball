@@ -29,8 +29,8 @@ const NavLinks = () => {
       '<i class="fa-solid fa-crosshairs"></i>',
     ),
     new NavLink(
-      'Perception',
-      'perception',
+      'Skill Check',
+      'skillcheck',
       '<i class="fa-solid fa-eye"></i>',
     ),
   ];

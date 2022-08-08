@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Creature } from "../../models/creature";
 import { DiceRoller } from "../../util/diceRoller";
 
-const PerceptionApp = () => {
+const SkillCheckApp = () => {
     const dice = new DiceRoller();
     const [party, updateParty] = useState([new Creature()]);
 
@@ -13,19 +13,25 @@ const PerceptionApp = () => {
         updateParty(newParty);
     }
 
-    const updateBonus = (e: any, i: number) => {
+    const removeParty = (i: number) => {
         let newParty = party.slice();
-        newParty[i].perceptionBonus = e;
+        newParty.splice(i, 1);
         updateParty(newParty);
     }
 
-    const rollPerception = (i?: number) => {
+    const updateBonus = (e: any, i: number) => {
+        let newParty = party.slice();
+        newParty[i].skillCheckBonus = e;
+        updateParty(newParty);
+    }
+
+    const rollSkillCheck = (i?: number) => {
         let newParty = party.slice();
         if (i !== undefined) {
-            newParty[i].perception = dice.d20() + newParty[i].perceptionBonus;
+            newParty[i].skillCheck = dice.d20() + newParty[i].skillCheckBonus;
         } else {
             for (let i = 0; i < newParty.length; i++) {
-                newParty[i].perception = dice.d20() + newParty[i].perceptionBonus;
+                newParty[i].skillCheck = dice.d20() + newParty[i].skillCheckBonus;
             }
         }
 
@@ -39,24 +45,26 @@ const PerceptionApp = () => {
                     {party.map((p, i) => 
                         <>
                             <Group position="center">
-                                <TextInput id="input-demo" label="Hero" placeholder="Hero" />
+                                <TextInput id="input-demo" placeholder="Hero" />
 
                                 <NumberInput
-                                    value={p.perceptionBonus}
-                                    placeholder="Perception Bonus"
-                                    label="Perception Bonus"
+                                    value={p.skillCheckBonus}
+                                    placeholder="Bonus"
                                     onChange={(e) => updateBonus(e, i)}
+                                    formatter={(bonus) => `+ ${bonus}`}
                                     required>
                                 </NumberInput>
-                                
-                                <NumberInput
-                                    value={p.perception}
-                                    placeholder=""
-                                    label="Perception"
-                                    disabled>
-                                </NumberInput>
-                                <Button variant="subtle" size="lg" onClick={() => rollPerception(i)}>
+
+                                <Button variant="subtle" size="lg" onClick={() => rollSkillCheck(i)}>
                                     <i className="fa-solid fa-dice-d20"></i>
+                                </Button>
+                                
+                                <Title className="skillCheckResult">{p.skillCheck}</Title>
+                                <Button 
+                                    variant="subtle"
+                                    color={"red"}
+                                    onClick={() => removeParty(i)}>
+                                        <i className="fa-solid fa-xmark"></i>
                                 </Button>
                             </Group>
                             <Space h={'lg'} />
@@ -66,7 +74,9 @@ const PerceptionApp = () => {
                     <Group position="center">
                         <Button onClick={addParty} color="green">Add</Button>
 
-                        <Button onClick={() => rollPerception()}>Roll All</Button>
+                        <Button onClick={() => rollSkillCheck()} leftIcon={<i className="fa-solid fa-dice-d20"></i>}>
+                            Roll All
+                        </Button>
                     </Group>
                 </Grid.Col>
             </Grid>
@@ -74,4 +84,4 @@ const PerceptionApp = () => {
     );
 }
 
-export default PerceptionApp;
+export default SkillCheckApp;
