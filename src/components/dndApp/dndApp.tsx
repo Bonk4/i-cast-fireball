@@ -1,14 +1,21 @@
-import { useState } from 'react';
-import { Accordion, Button, Grid, Group, Space } from '@mantine/core';
-import PartyConfig from './partyConfig/partyConfig';
-import MiscConfig from './miscConfig/miscConfig';
-import VillainConfig from './villainConfig/villainConfig';
-import { Creature } from '../../models/creature';
-import { Hero } from '../../models/creatures/hero';
-import { Villain } from '../../models/creatures/villain';
-import { Custom } from '../../models/creatures/custom';
-import InitiativeList from './initiativeList/initiativeList';
-import '../../util/creatureSort'; //rollForInitiative
+import { useState } from "react";
+import {
+  Accordion,
+  Button,
+  Container,
+  Grid,
+  Group,
+  Space,
+} from "@mantine/core";
+import PartyConfig from "./partyConfig/partyConfig";
+import MiscConfig from "./miscConfig/miscConfig";
+import VillainConfig from "./villainConfig/villainConfig";
+import { Creature } from "../../models/creature";
+import { Hero } from "../../models/creatures/hero";
+import { Villain } from "../../models/creatures/villain";
+import { Custom } from "../../models/creatures/custom";
+import InitiativeList from "./initiativeList/initiativeList";
+import "../../util/creatureSort"; //rollForInitiative
 
 const DndApp = () => {
   const [initiative, updateInitiative] = useState(new Array<Creature>(0));
@@ -30,7 +37,7 @@ const DndApp = () => {
   };
 
   return (
-    <>
+    <Container>
       <Grid
         justify="space-around"
         styles={(theme) => ({
@@ -39,7 +46,7 @@ const DndApp = () => {
           },
         })}
       >
-        <Grid.Col span={6}>
+        <Grid.Col span={7}>
           <Accordion multiple>
             <Accordion.Item label="Heroes">
               <PartyConfig heroes={heroes} updateHeroes={updateHeroes} />
@@ -57,31 +64,30 @@ const DndApp = () => {
             </Accordion.Item>
           </Accordion>
         </Grid.Col>
-        <Grid.Col span={1}></Grid.Col>
-        <Grid.Col span={4}>
-          <Group position='apart'>
+        <Grid.Col span={5}>
+          <Group position="apart">
             <Button
               variant="gradient"
-              gradient={{ from: 'red', to: 'yellow' }}
-              size={'lg'}
+              gradient={{ from: "red", to: "yellow" }}
+              size={"lg"}
               onClick={rollForInitiative}
             >
               <i className="fa-solid fa-fire nav-icon"></i>
               Roll For Initiative!
             </Button>
-            <Button
-              color="gray"
-              size={'lg'}
-              onClick={clearInitiative}>
+            <Button color="gray" size={"lg"} onClick={clearInitiative}>
               Clear
             </Button>
           </Group>
-          <Space h={'lg'} />
-          <InitiativeList creatures={initiative} updateCreatures={updateInitiative} rollForMe={rollForMe} />
+          <Space h={"lg"} />
+          <InitiativeList
+            creatures={initiative}
+            updateCreatures={updateInitiative}
+            rollForMe={rollForMe}
+          />
         </Grid.Col>
-        <Grid.Col span={1}></Grid.Col>
       </Grid>
-    </>
+    </Container>
   );
 };
 

@@ -1,5 +1,5 @@
-import { Group, Text, UnstyledButton } from '@mantine/core';
-import { Link } from 'react-router-dom';
+import { Group, Text, UnstyledButton } from "@mantine/core";
+import { Link } from "react-router-dom";
 
 export class NavLink {
   constructor(displayName: string, url: string, logo?: string) {
@@ -7,31 +7,32 @@ export class NavLink {
     this.url = url;
     if (logo) this.logo = logo;
   }
-  displayName: string = '';
-  url: string = '';
-  logo: string = '';
+  displayName: string = "";
+  url: string = "";
+  logo: string = "";
 }
 
 const NavLinks = () => {
   const links = [
     new NavLink(
-      'Dungeons & Dragons',
-      'd20',
-      '<i class="fa-solid fa-dice-d20"></i>',
+      "Dungeons & Dragons",
+      "d20",
+      '<i class="fa-solid fa-dice-d20"></i>'
     ),
     new NavLink(
-      'D&D Teams',
-      'd20-teams',
-      '<i class="fa-solid fa-dice-d20"></i>'),
-    new NavLink(
-      'Space Pickle',
-      'teams',
-      '<i class="fa-solid fa-crosshairs"></i>',
+      "D&D Teams",
+      "d20-teams",
+      '<i class="fa-solid fa-dice-d20"></i>'
     ),
     new NavLink(
-      'Skill Check',
-      'skillcheck',
-      '<i class="fa-solid fa-eye"></i>',
+      "Space Pickle",
+      "teams",
+      '<i class="fa-solid fa-crosshairs"></i>'
+    ),
+    new NavLink(
+      "Party Skill Checks",
+      "skillcheck",
+      '<i class="fa-solid fa-eye"></i>'
     ),
   ];
 
@@ -41,19 +42,19 @@ const NavLinks = () => {
         <Link to={link.url}>
           <UnstyledButton
             sx={(theme) => ({
-              display: 'block',
-              width: '100%',
+              display: "block",
+              width: "100%",
               padding: theme.spacing.xs,
               borderRadius: theme.radius.sm,
               color:
-                theme.colorScheme === 'dark'
+                theme.colorScheme === "dark"
                   ? theme.colors.dark[0]
                   : theme.black,
-              textTransform: 'none',
+              textTransform: "none",
 
-              '&:hover': {
+              "&:hover": {
                 backgroundColor:
-                  theme.colorScheme === 'dark'
+                  theme.colorScheme === "dark"
                     ? theme.colors.dark[6]
                     : theme.colors.gray[0],
               },

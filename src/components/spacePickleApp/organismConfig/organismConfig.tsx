@@ -6,8 +6,8 @@ import {
   NumberInput,
   Space,
   Title,
-} from '@mantine/core';
-import { Organism } from '../../../models/organism';
+} from "@mantine/core";
+import { Organism } from "../../../models/organism";
 
 export type OrganismConfigProps = {
   organisms: Organism[];
@@ -58,29 +58,38 @@ const OrganismConfig = ({
   return (
     <>
       <Group position="apart" grow>
-        <Title order={2}>{lightSide ? 'Light Side' : 'Dark Side'}</Title>
+        <Title order={2}>{lightSide ? "Light Side" : "Dark Side"}</Title>
       </Group>
-      <Space h={'md'} />
+      <Space h={"md"} />
       <Group position="center" spacing="lg">
         <Button onClick={addLightSide} uppercase>
           <i className="fa-solid fa-circle-plus"></i>
-          <Space w={'sm'} />
+          <Space w={"sm"} />
           Add
         </Button>
-        <Button color={'red'} onClick={clearLightSide} uppercase>
+        <Button color={"red"} onClick={clearLightSide} uppercase>
           Clear
         </Button>
       </Group>
 
-      <Space h={'md'} />
+      <Space h={"md"} />
 
       {organisms.map((org, i) => (
         <>
-          {i === 0 ? <></> : <><Space h={'sm'} /><Divider size={'sm'} /><Space h={'sm'} /></>}
+          {i === 0 ? (
+            <></>
+          ) : (
+            <>
+              <Space h={"sm"} />
+              <Divider size={"sm"} />
+              <Space h={"sm"} />
+            </>
+          )}
           <Group position="center">
             <NumberInput
               defaultValue={org.success}
               value={org.success}
+              size="lg"
               placeholder="2"
               label="Success"
               onChange={(e) => updateSuccess(e, i)}
@@ -90,6 +99,7 @@ const OrganismConfig = ({
             <NumberInput
               defaultValue={org.advantage}
               value={org.advantage}
+              size="lg"
               onChange={(e) => updateAdv(e, i)}
               placeholder="2"
               label="Advantage"
@@ -99,6 +109,7 @@ const OrganismConfig = ({
             <NumberInput
               defaultValue={org.triumph}
               value={org.triumph}
+              size="lg"
               placeholder="2"
               label="Triumph"
               onChange={(e) => updateTriumph(e, i)}
@@ -108,7 +119,7 @@ const OrganismConfig = ({
             <Button
               color="red"
               radius="xl"
-              variant='outline'
+              variant="subtle"
               compact
               uppercase
               onClick={(e: any) => removeOrganism(e, i)}
@@ -116,7 +127,7 @@ const OrganismConfig = ({
               <i className="fa-solid fa-xmark"></i>
             </Button>
           </Group>
-          <Space h={'md'} />
+          <Space h={"md"} />
         </>
       ))}
     </>

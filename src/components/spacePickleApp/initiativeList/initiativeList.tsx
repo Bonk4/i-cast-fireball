@@ -8,20 +8,23 @@ import {
   Space,
   Text,
   Title,
-} from '@mantine/core';
-import { Organism } from '../../../models/organism';
+} from "@mantine/core";
+import { Organism } from "../../../models/organism";
 
 export type InitiativeListProps = {
   organisms: Organism[];
   updateOrganisms: Function;
 };
 
-const InitiativeList = ({ organisms, updateOrganisms }: InitiativeListProps) => {
+const InitiativeList = ({
+  organisms,
+  updateOrganisms,
+}: InitiativeListProps) => {
   const removeOrganism = (index: number) => {
     let newOrganisms = organisms.slice();
     newOrganisms.splice(index, 1);
     updateOrganisms(newOrganisms);
-  }
+  };
 
   return organisms.length === 0 ? (
     <>
@@ -46,25 +49,24 @@ const InitiativeList = ({ organisms, updateOrganisms }: InitiativeListProps) => 
             <Paper
               className={
                 organism.lightSide
-                  ? 'init-light-organism'
-                  : 'init-dark-organism'
+                  ? "init-light-organism"
+                  : "init-dark-organism"
               }
               shadow="md"
               radius="md"
               p="md"
               withBorder
             >
-              <Group position='apart'>
+              <Group position="apart">
                 <div></div>
-                <Title order={2}>
-                  {organism.lightSide ? 'Light' : 'Dark'}
-                </Title>
+                <Title order={2}>{organism.lightSide ? "Light" : "Dark"}</Title>
                 <Button
-                  radius={'xl'}
+                  radius={"xl"}
                   compact
-                  variant='outline'
-                  color={'gray'}
-                  onClick={(e: any) => removeOrganism(i)}>
+                  variant="subtle"
+                  color={"gray"}
+                  onClick={(e: any) => removeOrganism(i)}
+                >
                   <i className="fa-solid fa-xmark"></i>
                 </Button>
               </Group>

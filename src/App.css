@@ -41,56 +41,64 @@ a:link {
   width: 125px;
 }
 
+.skillcheck-input {
+  width: 200px;
+}
+
+.skillcheck-number-input {
+  width: 80px;
+}
+
 .init-team-1 {
-  background-color: #1864AB !important;
+  background-color: #1864ab !important;
 }
 
 .init-team-2 {
-  background-color: #862E9C !important;
+  background-color: #862e9c !important;
 }
 
 .init-team-3 {
-  background-color: #C92A2A !important;
+  background-color: #c92a2a !important;
 }
 
 .init-team-4 {
-  background-color: #E67700 !important;
+  background-color: #e67700 !important;
 }
 
 .init-team-5 {
-  background-color: #087F5B !important;
+  background-color: #087f5b !important;
 }
 
 .init-team-6 {
-  background-color: #5C940D !important;
+  background-color: #5c940d !important;
 }
 
 .text-team-1 {
-  background-color: #1864AB !important;
+  background-color: #1864ab !important;
 }
 
 .text-team-2 {
-  background-color: #862E9C !important;
+  background-color: #862e9c !important;
 }
 
 .text-team-3 {
-  background-color: #C92A2A !important;
+  background-color: #c92a2a !important;
 }
 
 .text-team-4 {
-  background-color: #E67700 !important;
+  background-color: #e67700 !important;
 }
 
 .text-team-5 {
-  background-color: #087F5B !important;
+  background-color: #087f5b !important;
 }
 
 .text-team-6 {
-  background-color: #5C940D !important;
+  background-color: #5c940d !important;
 }
 
 .marked {
-  border: 3px solid #C1C2C5 !important;
+  border: 3px solid #c1c2c5 !important;
 }
 
 /* Space Pickle */
