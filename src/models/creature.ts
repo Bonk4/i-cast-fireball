@@ -2,6 +2,7 @@ export class Creature {
   //random 4 digit ID assigned at birth
   id: number = Math.floor(1000 + Math.random() * 9000);
   name: string = '';
+  team: number = 0;
 
   hp: number = 0;
   ac: number = 10;
@@ -15,6 +16,4 @@ export class Creature {
 
   display: boolean = true;
   marked: boolean = false;
-
-  team: number = 0;
 }
