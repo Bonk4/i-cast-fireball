@@ -1,77 +1,118 @@
-import { Group, Input, SegmentedControl, Space, Textarea, Title } from "@mantine/core";
-import { Creature } from "../../../models/creature";
+import {
+  Group,
+  Input,
+  SegmentedControl,
+  Space,
+  Textarea,
+  Title,
+} from '@mantine/core';
+import { useState } from 'react';
+import { Creature } from '../../../models/creature';
 
 export type TeamConfigProps = {
-    title: string;
-    team: Creature[];
-    updateTeam: Function;
-    teamName: string;
-    updateTeamName: Function;
-    teamNumber: number;
-    updateTeamNumber: Function;
+  title: string;
+  team: Creature[];
+  updateTeam: Function;
+  defaultTeamNumber: number;
 };
 
-const TeamConfig = ({ title, team, updateTeam, teamName, updateTeamName, teamNumber, updateTeamNumber }: TeamConfigProps) => {
-    const defaultColor = teamNumber.toString();
+const TeamConfig = ({
+  title,
+  team,
+  updateTeam,
+  defaultTeamNumber,
+}: TeamConfigProps) => {
+  const [teamName, updateTeamName] = useState('');
+  const [teamNumber, updateTeamNumber] = useState(defaultTeamNumber);
+  const [inits, updateInits] = useState('');
 
-    const updateTeamFromInits = (e: any) => {
-        let newTeam: Array<Creature> = [];
-        if (e.target.value !== undefined && e.target.value !== '') {
-            let rolls = e.target.value.split(/[\s,;]+/);
+  const updateTeamMembers = () => {
+    updateTeamFromInits();
+    updateTeam(
+      team.map((mate) => {
+        mate.name = teamName;
+        mate.team = teamNumber;
+        return mate;
+      }),
+    );
+  };
 
-            for (let i = 0; i < rolls.length; i++) {
-                const roll = parseInt(rolls[i].toString());
+  const updateTeamFromInits = () => {
+    let newTeam: Array<Creature> = [];
+    if (inits !== undefined && inits !== '') {
+      let rolls = inits.split(/[\s,;]+/);
+      console.log(rolls);
 
-                let teammate = new Creature();
+      for (let i = 0; i < rolls.length; i++) {
+        const roll = parseInt(rolls[i].toString());
 
-                if (rolls[i].indexOf('*') > -1) {
-                    if (roll === 1) {
-                        teammate.critFail = true;
-                    } else {
-                        teammate.critSuccess = true;
-                    }
-                }
+        let teammate = new Creature();
 
-                teammate.initiative = roll;
-                newTeam.push(teammate);
-            }
+        teammate.name = teamName;
+        teammate.team = teamNumber;
 
-            updateTeam(newTeam);
+        if (rolls[i].indexOf('*') > -1) {
+          if (roll === 1) {
+            teammate.critFail = true;
+          } else {
+            teammate.critSuccess = true;
+          }
         }
-    };
 
-    const assignTeamNumber = (num: string) => {
-        updateTeamNumber(parseInt(num));
+        teammate.initiative = roll;
+        newTeam.push(teammate);
+      }
+
+      updateTeam(newTeam);
+      console.log(newTeam);
     }
+  };
 
-    return (
-        <>
-            <Group position="apart">
-                <Title order={3}>{teamName.length > 0 ? teamName : title}</Title>
-                <Input value={teamName} onChange={(e: any) => updateTeamName(e.target.value)}
-                    placeholder={`Custom name`}></Input>
-            </Group>
-            <Space h={'sm'} />
+  const assignTeamNumber = (num: string) => {
+    console.log(num);
+    updateTeamNumber(parseInt(num));
+    updateTeamMembers();
+  };
 
-            <Textarea
-                placeholder="3, 14, 20*..."
-                onChange={updateTeamFromInits}
-            />
+  return (
+    <>
+      <Group position="apart">
+        <Title order={3}>{teamName.length > 0 ? teamName : title}</Title>
+        <Input
+          value={teamName}
+          onChange={(e: any) => {
+            updateTeamName(e.target.value);
+            updateTeamFromInits();
+          }}
+          placeholder={`Custom name`}
+        ></Input>
+      </Group>
+      <Space h={'sm'} />
 
-            <Space h={'sm'} />
-            <SegmentedControl
-                defaultValue={defaultColor}
-                data={[
-                    { label: 'Blue 1', value: '1' },
-                    { label: 'Blue 2', value: '2' },
-                    { label: 'Red 1', value: '3' },
-                    { label: 'Red 2', value: '4' },
-                    { label: 'Green 1', value: '5' },
-                    { label: 'Green 2', value: '6' },
-                ]}
-                onChange={(e) => assignTeamNumber(e)} />
-        </>
-    )
-}
+      <Textarea
+        placeholder="3, 14, 20*..."
+        value={inits}
+        onChange={(e: any) => {
+          updateInits(e.target.value);
+          updateTeamMembers();
+        }}
+      />
+
+      <Space h={'sm'} />
+      <SegmentedControl
+        defaultValue={defaultTeamNumber.toString()}
+        data={[
+          { label: 'Blue 1', value: '1' },
+          { label: 'Blue 2', value: '2' },
+          { label: 'Red 1', value: '3' },
+          { label: 'Red 2', value: '4' },
+          { label: 'Green 1', value: '5' },
+          { label: 'Green 2', value: '6' },
+        ]}
+        onChange={(e) => assignTeamNumber(e)}
+      />
+    </>
+  );
+};
 
 export default TeamConfig;
