@@ -1,34 +1,37 @@
-import { Button, Container, Grid, Group, Space } from "@mantine/core";
-import { useState } from "react";
-import { Creature } from "../../models/creature";
-import { Hero } from "../../models/creatures/hero";
-import { Villain } from "../../models/creatures/villain";
-import InitiativeList from "./initiativeList/initiativeList";
-import TeamConfig from "./teamConfig/teamConfig";
+import { Button, Container, Grid, Group, Space } from '@mantine/core';
+import { useState } from 'react';
+import { Creature } from '../../models/creature';
+import { Hero } from '../../models/creatures/hero';
+import { Villain } from '../../models/creatures/villain';
+import InitiativeList from './initiativeList/initiativeList';
+import TeamConfig from './teamConfig/teamConfig';
 
 const DndTeamsApp = () => {
   const [initiative, updateInitiative] = useState(new Array<Creature>());
   const [party, updateParty] = useState(new Array<Creature>());
-  const [partyName, updatePartyName] = useState("");
+  const [partyName, updatePartyName] = useState('');
   const [partyTeamNumber, updatePartyTeamNumber] = useState(1);
 
   const [villains, updateVillains] = useState(new Array<Creature>());
-  const [villainName, updateVillainName] = useState("");
+  const [villainName, updateVillainName] = useState('');
   const [villainTeamNumber, updateVillainTeamNumber] = useState(3);
 
   const [other, updateOther] = useState(new Array<Creature>());
-  const [otherName, updateOtherName] = useState("");
+  const [otherName, updateOtherName] = useState('');
   const [otherTeamNumber, updateOtherTeamNumber] = useState(5);
 
   const rollForInitiative = () => {
-    setTeam(party, partyTeamNumber, partyName.length > 0 ? partyName : "Party");
+    setTeam(party, partyTeamNumber, partyName.length > 0 ? partyName : 'Party');
     setTeam(
       villains,
       villainTeamNumber,
-      villainName.length > 0 ? partyName : "Villains"
+      villainName.length > 0 ? villainName : 'Villains',
     );
-    setTeam(other, otherTeamNumber, otherName.length > 0 ? partyName : "Other");
-    updateInitiative(party.concat(villains).concat(other));
+    setTeam(other, otherTeamNumber, otherName.length > 0 ? otherName : 'Other');
+
+    updateInitiative(
+      [...party, ...villains, ...other].rollForInitiative(false),
+    );
   };
 
   const clearInitiative = (e: any) => {
@@ -56,7 +59,7 @@ const DndTeamsApp = () => {
             updateTeamNumber={updatePartyTeamNumber}
           />
 
-          <Space h={"lg"} />
+          <Space h={'lg'} />
 
           <TeamConfig
             title="Villains"
@@ -68,7 +71,7 @@ const DndTeamsApp = () => {
             updateTeamNumber={updateVillainTeamNumber}
           />
 
-          <Space h={"lg"} />
+          <Space h={'lg'} />
 
           <TeamConfig
             title="Other"
@@ -84,18 +87,18 @@ const DndTeamsApp = () => {
           <Group position="apart">
             <Button
               variant="gradient"
-              gradient={{ from: "red", to: "yellow" }}
-              size={"lg"}
+              gradient={{ from: 'red', to: 'yellow' }}
+              size={'lg'}
               onClick={rollForInitiative}
             >
               <i className="fa-solid fa-fire nav-icon"></i>
               Roll For Initiative!
             </Button>
-            <Button color="gray" size={"lg"} onClick={clearInitiative}>
+            <Button color="gray" size={'lg'} onClick={clearInitiative}>
               Clear
             </Button>
           </Group>
-          <Space h={"md"} />
+          <Space h={'md'} />
           <InitiativeList
             creatures={initiative}
             updateCreatures={updateInitiative}
