@@ -1,23 +1,30 @@
-import "./App.css";
-import { useState } from "react";
-import { AppShell, MantineProvider, useMantineTheme } from "@mantine/core";
-import DndApp from "./components/dndApp/dndApp";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import SpacePickleApp from "./components/spacePickleApp/spacePickleApp";
-import NavBar from "./components/navbar/navBar";
-import DndTeamsApp from "./components/dndTeamsApp/dndTeamsApp";
-import SkillCheckApp from "./components/skillCheckApp/skillCheckApp";
+import './App.css';
+import { useState } from 'react';
+import { AppShell, MantineProvider, useMantineTheme } from '@mantine/core';
+import DndApp from './components/dndApp/dndApp';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import SpacePickleApp from './components/spacePickleApp/spacePickleApp';
+import NavBar from './components/navbar/navBar';
+import DndTeamsApp from './components/dndTeamsApp/dndTeamsApp';
+import SkillCheckApp from './components/skillCheckApp/skillCheckApp';
+import { Hero } from './models/creatures/hero';
+import { HeroNames } from './data/heroNames';
 
 function App() {
   const theme = useMantineTheme();
   const [opened, setOpened] = useState(false);
-  const [party, updateParty] = useState([]);
+  const [party, updateParty] = useState([
+    new Hero(),
+    new Hero(),
+    new Hero(),
+    new Hero(),
+  ]);
 
   return (
     <div className="App">
       <BrowserRouter>
         <MantineProvider
-          theme={{ colorScheme: "dark" }}
+          theme={{ colorScheme: 'dark' }}
           withGlobalStyles
           withNormalizeCSS
         >

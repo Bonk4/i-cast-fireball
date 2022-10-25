@@ -1,9 +1,18 @@
-import { Button, Container, Divider, Grid, Group, Space } from "@mantine/core";
-import { useState } from "react";
-import { Organism } from "../../models/organism";
-import "../../util/organismSort";
-import InitiativeList from "./initiativeList/initiativeList";
-import OrganismConfig from "./organismConfig/organismConfig";
+import {
+  Accordion,
+  Button,
+  Container,
+  Divider,
+  Grid,
+  Group,
+  Space,
+  Text,
+} from '@mantine/core';
+import { useState } from 'react';
+import { Organism } from '../../models/organism';
+import '../../util/organismSort';
+import InitiativeList from './initiativeList/initiativeList';
+import OrganismConfig from './organismConfig/organismConfig';
 
 const SpacePickleApp = () => {
   const [initiative, updateInitiative] = useState(new Array<Organism>(0));
@@ -21,6 +30,20 @@ const SpacePickleApp = () => {
 
   return (
     <Container>
+      <Accordion>
+        <Accordion.Item
+          label="Space Pickle"
+          iconPosition="right"
+          icon={<i className="fa-solid fa-question"></i>}
+        >
+          <Text align="left">
+            Space Pickle, for when you get into a space pickle.
+          </Text>
+          <Text align="left">Star Wars themed Genysis Combat tracking.</Text>
+        </Accordion.Item>
+      </Accordion>
+
+      <Space h={'xl'} />
       <Grid
         justify="space-around"
         styles={(theme) => ({
@@ -36,9 +59,9 @@ const SpacePickleApp = () => {
             lightSide={true}
           />
 
-          <Space h={"md"} />
-          <Divider size={"sm"} />
-          <Space h={"md"} />
+          <Space h={'md'} />
+          <Divider size={'sm'} />
+          <Space h={'md'} />
 
           <OrganismConfig
             organisms={darkSide}
@@ -50,8 +73,8 @@ const SpacePickleApp = () => {
           <Group position="apart">
             <Button
               variant="gradient"
-              gradient={{ from: "teal", to: "blue", deg: 60 }}
-              size={"lg"}
+              gradient={{ from: 'teal', to: 'blue', deg: 60 }}
+              size={'lg'}
               onClick={rollForInitiativeInSpace}
             >
               <i className="fa-solid fa-fire nav-icon"></i>
@@ -61,7 +84,7 @@ const SpacePickleApp = () => {
               Clear
             </Button>
           </Group>
-          <Space h={"lg"} />
+          <Space h={'lg'} />
           <InitiativeList
             organisms={initiative}
             updateOrganisms={updateInitiative}

@@ -1,4 +1,15 @@
-import { Button, Container, Grid, Group, Space } from '@mantine/core';
+import {
+  Accordion,
+  Button,
+  Card,
+  Container,
+  Grid,
+  Group,
+  Paper,
+  Space,
+  Text,
+  Title,
+} from '@mantine/core';
 import { useState } from 'react';
 import { Creature } from '../../models/creature';
 import { Hero } from '../../models/creatures/hero';
@@ -47,6 +58,20 @@ const DndTeamsApp = () => {
 
   return (
     <Container>
+      <Accordion>
+        <Accordion.Item
+          label="D&D Teams"
+          iconPosition="right"
+          icon={<i className="fa-solid fa-question"></i>}
+        >
+          Configure up to 3 teams that will roll for initiative. This is for
+          Genisys-style DnD combat, where players and enemies roll for a team
+          initiative where anyone can use their team's initiative slots in any
+          order.
+        </Accordion.Item>
+      </Accordion>
+
+      <Space h={'xl'} />
       <Grid>
         <Grid.Col span={7}>
           <TeamConfig

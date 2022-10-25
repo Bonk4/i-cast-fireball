@@ -1,21 +1,24 @@
-import { useState } from "react";
+import { useState } from 'react';
 import {
   Accordion,
   Button,
+  Code,
   Container,
   Grid,
   Group,
+  Highlight,
   Space,
-} from "@mantine/core";
-import PartyConfig from "./partyConfig/partyConfig";
-import MiscConfig from "./miscConfig/miscConfig";
-import VillainConfig from "./villainConfig/villainConfig";
-import { Creature } from "../../models/creature";
-import { Hero } from "../../models/creatures/hero";
-import { Villain } from "../../models/creatures/villain";
-import { Custom } from "../../models/creatures/custom";
-import InitiativeList from "./initiativeList/initiativeList";
-import "../../util/creatureSort"; //rollForInitiative
+  Text,
+} from '@mantine/core';
+import PartyConfig from './partyConfig/partyConfig';
+import MiscConfig from './miscConfig/miscConfig';
+import VillainConfig from './villainConfig/villainConfig';
+import { Creature } from '../../models/creature';
+import { Hero } from '../../models/creatures/hero';
+import { Villain } from '../../models/creatures/villain';
+import { Custom } from '../../models/creatures/custom';
+import InitiativeList from './initiativeList/initiativeList';
+import '../../util/creatureSort'; //rollForInitiative
 
 const DndApp = () => {
   const [initiative, updateInitiative] = useState(new Array<Creature>(0));
@@ -38,6 +41,40 @@ const DndApp = () => {
 
   return (
     <Container>
+      <Accordion>
+        <Accordion.Item
+          label="Dungeons & Dragons"
+          iconPosition="right"
+          icon={<i className="fa-solid fa-question"></i>}
+        >
+          <Text align="left">
+            Traditional DnD 5th Edition based initiative.
+          </Text>
+          <Space h={'sm'} />
+          <Text align="left">
+            {/* <Highlight highlightColor="red" highlight={'1*, 10, 2, 15*'}> */}
+            Just type all of your Hero (players) and Villain (enemies)
+            initiatives into the Quick boxes (like:{' '}
+            <Code color="blue">1*, 10, 2, 20*</Code>), using * to denote a
+            critical fail or success, and sort out the names later. We'll sort
+            the initiative no matter how you enter it.
+            {/* </Highlight> */}
+          </Text>
+          <Space h={'sm'} />
+          <Text align="left">
+            Alternatively, hit Custom for Heroes or Villains to add
+            players/enemies individually.
+          </Text>
+          <Space h={'sm'} />
+          <Text align="left">
+            Finally, use the Custom section to add initiative rolls outside of a
+            player/enemy context, like Lair Actions or NPCs.
+          </Text>
+        </Accordion.Item>
+      </Accordion>
+
+      <Space h={'xl'} />
+
       <Grid
         justify="space-around"
         styles={(theme) => ({
@@ -68,18 +105,18 @@ const DndApp = () => {
           <Group position="apart">
             <Button
               variant="gradient"
-              gradient={{ from: "red", to: "yellow" }}
-              size={"lg"}
+              gradient={{ from: 'red', to: 'yellow' }}
+              size={'lg'}
               onClick={rollForInitiative}
             >
               <i className="fa-solid fa-fire nav-icon"></i>
               Roll For Initiative!
             </Button>
-            <Button color="gray" size={"lg"} onClick={clearInitiative}>
+            <Button color="gray" size={'lg'} onClick={clearInitiative}>
               Clear
             </Button>
           </Group>
-          <Space h={"lg"} />
+          <Space h={'lg'} />
           <InitiativeList
             creatures={initiative}
             updateCreatures={updateInitiative}

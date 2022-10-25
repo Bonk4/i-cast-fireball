@@ -1,4 +1,5 @@
 import {
+  Accordion,
   Button,
   Container,
   Grid,
@@ -8,10 +9,10 @@ import {
   Text,
   TextInput,
   Title,
-} from "@mantine/core";
-import { useState } from "react";
-import { Creature } from "../../models/creature";
-import { DiceRoller } from "../../util/diceRoller";
+} from '@mantine/core';
+import { useState } from 'react';
+import { Creature } from '../../models/creature';
+import { DiceRoller } from '../../util/diceRoller';
 
 export type SkillCheckProps = {
   party: Array<Creature>;
@@ -54,7 +55,34 @@ const SkillCheckApp = ({ party, updateParty }: SkillCheckProps) => {
 
   return (
     <Container>
-      <Grid gutter={"lg"}>
+      <Accordion>
+        <Accordion.Item
+          label="Party Skill Checks"
+          iconPosition="right"
+          icon={<i className="fa-solid fa-question"></i>}
+        >
+          <Text align="left">For hidden rolls.</Text>
+          <Space h={'sm'} />
+          <Text align="left">
+            Configure party members, and their bonuses, and use this to do
+            hidden skill checks from your players.
+          </Text>
+          <Space h={'sm'} />
+          <Text align="left">
+            Best used for things like secret Perception rolls, so your party
+            doesn't know an obvious fail from a success, and roleplay with
+            exclusively with information from the GM.
+          </Text>
+          <Space h={'sm'} />
+          <Text align="left">
+            Also available on any page as a widget at the bottom of the
+            navigation bar.
+          </Text>
+        </Accordion.Item>
+      </Accordion>
+
+      <Space h={'xl'} />
+      <Grid gutter={'lg'}>
         <Grid.Col span={12}>
           <Group position="center">
             <Button onClick={addParty} color="green">
@@ -76,7 +104,7 @@ const SkillCheckApp = ({ party, updateParty }: SkillCheckProps) => {
               <Group position="center">
                 <TextInput
                   id="input-demo"
-                  placeholder="Hero"
+                  placeholder={p.name}
                   className="skillcheck-input"
                 />
 
@@ -100,13 +128,13 @@ const SkillCheckApp = ({ party, updateParty }: SkillCheckProps) => {
                 <Title className="skillCheckResult">{p.skillCheck}</Title>
                 <Button
                   variant="subtle"
-                  color={"red"}
+                  color={'red'}
                   onClick={() => removeParty(i)}
                 >
                   <i className="fa-solid fa-xmark"></i>
                 </Button>
               </Group>
-              <Space h={"lg"} />
+              <Space h={'lg'} />
             </>
           ))}
         </Grid.Col>
