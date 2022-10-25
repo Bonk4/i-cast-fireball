@@ -1,4 +1,16 @@
-import { Paper, Title, Text, SimpleGrid, Skeleton, Group, Button } from '@mantine/core';
+import {
+  Paper,
+  Title,
+  Text,
+  SimpleGrid,
+  Skeleton,
+  Group,
+  Button,
+  SegmentedControl,
+  Badge,
+  Center,
+} from '@mantine/core';
+import { useState } from 'react';
 import { Creature } from '../../../models/creature';
 import { Hero } from '../../../models/creatures/hero';
 import { Villain } from '../../../models/creatures/villain';
@@ -9,18 +21,30 @@ export type InitiativeListProps = {
   rollForMe: Boolean;
 };
 
-const InitiativeList = ({ creatures, updateCreatures, rollForMe }: InitiativeListProps) => {
+const InitiativeList = ({
+  creatures,
+  updateCreatures,
+  rollForMe,
+}: InitiativeListProps) => {
+  const [size, updateSize] = useState('expanded');
+
   const removeCreature = (index: number) => {
     let newCreatures = creatures.slice();
     newCreatures.splice(index, 1);
     updateCreatures(newCreatures);
-  }
+  };
 
   const markCreature = (i: number) => {
     let newCreatures = creatures.slice();
     newCreatures[i].marked = !newCreatures[i].marked;
     updateCreatures(newCreatures);
-  }
+  };
+
+  const getColor = (c: Creature) => {
+    if (c instanceof Hero) return 'blue';
+    if (c instanceof Villain) return 'red';
+    return 'gray';
+  };
 
   return creatures.length === 0 ? (
     <>
@@ -40,47 +64,77 @@ const InitiativeList = ({ creatures, updateCreatures, rollForMe }: InitiativeLis
           },
         })}
       >
-        {creatures.map((creature, i) => (
+        <SegmentedControl
+          value={size}
+          onChange={updateSize}
+          data={[
+            { label: 'Compact', value: 'compact' },
+            { label: 'Expanded', value: 'expanded' },
+          ]}
+        />
+        {size === 'compact' ? (
           <>
-            <Paper
-              className={
-                `${creature instanceof Hero
-                  ? 'init-hero'
-                  : creature instanceof Villain
-                    ? 'init-villain'
-                    : 'init-custom'} ${creature.marked ? 'marked' : ''}`
-              }
-              shadow="md"
-              radius="md"
-              p="md"
-              withBorder
-            >
-              <Group position='apart'>
-                <Button
-                  radius={'xl'}
-                  compact
-                  variant='subtle'
-                  color={'gray'} onClick={() => markCreature(i)}>
-                  <i className="fa-solid fa-bookmark"></i>
-                </Button>
-                <Title order={2}>{creature.name}</Title>
-                <Button
-                  radius={'xl'}
-                  compact
-                  variant='subtle'
-                  color={'gray'} onClick={() => removeCreature(i)}>
-                  <i className="fa-solid fa-xmark"></i>
-                </Button>
-              </Group>
-              <Text>
-                {`Initiative: ${creature.initiative}${creature instanceof Villain && rollForMe
-                  ? ` | Natural ${creature.roll}`
-                  : ''}
-                  ${creature.critFail || creature.critSuccess ? '*' : ''}`}
-              </Text>
-            </Paper>
+            {creatures.map((creature) => (
+              <>
+                <Center>
+                  <div style={{ width: 150 }}>
+                    <Badge size="lg" color={getColor(creature)} fullWidth>
+                      {creature.name}
+                    </Badge>
+                  </div>
+                </Center>
+              </>
+            ))}
           </>
-        ))}
+        ) : (
+          creatures.map((creature, i) => (
+            <>
+              <Paper
+                className={`${
+                  creature instanceof Hero
+                    ? 'init-hero'
+                    : creature instanceof Villain
+                    ? 'init-villain'
+                    : 'init-custom'
+                } ${creature.marked ? 'marked' : ''}`}
+                shadow="md"
+                radius="md"
+                p="md"
+                withBorder
+              >
+                <Group position="apart">
+                  <Button
+                    radius={'xl'}
+                    compact
+                    variant="subtle"
+                    color={'gray'}
+                    onClick={() => markCreature(i)}
+                  >
+                    <i className="fa-solid fa-bookmark"></i>
+                  </Button>
+                  <Title order={2}>{creature.name}</Title>
+                  <Button
+                    radius={'xl'}
+                    compact
+                    variant="subtle"
+                    color={'gray'}
+                    onClick={() => removeCreature(i)}
+                  >
+                    <i className="fa-solid fa-xmark"></i>
+                  </Button>
+                </Group>
+                <Text>
+                  {`Initiative: ${creature.initiative}${
+                    creature instanceof Villain && rollForMe
+                      ? ` | Natural ${creature.roll}`
+                      : ''
+                  }
+                  ${creature.critFail || creature.critSuccess ? '*' : ''}`}
+                </Text>
+              </Paper>
+            </>
+          ))
+        )}
       </SimpleGrid>
     </>
   );
