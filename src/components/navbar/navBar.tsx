@@ -9,12 +9,12 @@ import {
   Button,
   ActionIcon,
   Tooltip,
-} from "@mantine/core";
-import { useState } from "react";
-import { Creature } from "../../models/creature";
-import SkillCheckApp from "../skillCheckApp/skillCheckApp";
-import DiceDrawer from "./diceDrawer/diceDrawer";
-import NavLinks from "./navLinks";
+} from '@mantine/core';
+import { useState } from 'react';
+import { Creature } from '../../models/creature';
+import SkillCheckApp from '../skillCheckApp/skillCheckApp';
+import DiceDrawer from './diceDrawer/diceDrawer';
+import NavLinks from './navLinks';
 
 export type NavBarProps = {
   party: Array<Creature>;
@@ -24,6 +24,7 @@ export type NavBarProps = {
 const NavBar = ({ party, updateParty }: NavBarProps) => {
   const [diceDrawerOpened, setDiceDrawerOpened] = useState(false);
   const [skillCheckDrawerOpened, setSkillCheckDrawerOpened] = useState(false);
+  const [genesysDrawerOpened, setGenesysDrawerOpened] = useState(false);
 
   return (
     <Navbar
@@ -38,16 +39,16 @@ const NavBar = ({ party, updateParty }: NavBarProps) => {
             <i className="fa-solid fa-fire nav-icon"></i>I Cast Fireball!
           </Title>
         </Group>
-        <Space h={"md"} />
-        <Divider size={"sm"} />
-        <Space h={"md"} />
+        <Space h={'md'} />
+        <Divider size={'sm'} />
+        <Space h={'md'} />
       </Navbar.Section>
       <Navbar.Section className="navlinks" grow mt="md">
         <NavLinks />
       </Navbar.Section>
       <Navbar.Section>
-        <Divider size={"sm"} />
-        <Space h={"md"} />
+        <Divider size={'sm'} />
+        <Space h={'md'} />
 
         <Drawer
           opened={diceDrawerOpened}
@@ -69,19 +70,39 @@ const NavBar = ({ party, updateParty }: NavBarProps) => {
           <SkillCheckApp party={party} updateParty={updateParty} />
         </Drawer>
 
+        {/* <i class="fa-solid fa-burst"></i>  */}
+        <Drawer
+          opened={genesysDrawerOpened}
+          onClose={() => setGenesysDrawerOpened(false)}
+          title="Genesys Roller"
+          padding="xl"
+          size="800px"
+        >
+          {/* Add genesys dice roller app here */}
+        </Drawer>
+
         <Group position="center">
           <Tooltip label="Party Skill Checks">
             <ActionIcon
               onClick={() => setSkillCheckDrawerOpened(true)}
-              size={"xl"}
+              size={'xl'}
             >
               <i className="fa-solid fa-eye"></i>
             </ActionIcon>
           </Tooltip>
 
           <Tooltip label="Dice Roller">
-            <ActionIcon onClick={() => setDiceDrawerOpened(true)} size={"xl"}>
+            <ActionIcon onClick={() => setDiceDrawerOpened(true)} size={'xl'}>
               <i className="fa-solid fa-dice-d20"></i>
+            </ActionIcon>
+          </Tooltip>
+
+          <Tooltip label="Genesys Roller">
+            <ActionIcon
+              onClick={() => setGenesysDrawerOpened(true)}
+              size={'xl'}
+            >
+              <i className="fa-solid fa-burst"></i>
             </ActionIcon>
           </Tooltip>
         </Group>
