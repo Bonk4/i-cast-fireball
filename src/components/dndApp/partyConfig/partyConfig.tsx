@@ -163,7 +163,7 @@ const PartyConfig = ({ heroes, updateHeroes }: PartyConfigProps) => {
                   radius="xl"
                   size="sm"
                   uppercase
-                  variant="outline"
+                  variant="subtle"
                   onClick={(e: any) => removeHero(e, i)}
                 >
                   <i className="fa-solid fa-xmark"></i>

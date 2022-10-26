@@ -176,7 +176,7 @@ const VillainConfig = ({
                   radius="xl"
                   size="sm"
                   uppercase
-                  variant="outline"
+                  variant="subtle"
                   onClick={(e: any) => removevillain(e, i)}
                 >
                   <i className="fa-solid fa-xmark"></i>
@@ -212,7 +212,7 @@ const VillainConfig = ({
                   radius="xl"
                   size="sm"
                   uppercase
-                  variant='outline'
+                  variant="outline"
                   onClick={(e: any) => removevillain(e, i)}
                 >
                   <i className="fa-solid fa-xmark"></i>

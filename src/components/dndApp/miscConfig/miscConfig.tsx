@@ -104,10 +104,11 @@ const MiscConfig = ({ misc, updateMisc }: MiscConfigProps) => {
                 color="red"
                 radius="xl"
                 size="sm"
+                variant="subtle"
                 uppercase
                 onClick={(e: any) => removeCustom(e, i)}
               >
-                Remove
+                <i className="fa-solid fa-xmark"></i>
               </Button>
             </Group>
             <Space h={'sm'} />
