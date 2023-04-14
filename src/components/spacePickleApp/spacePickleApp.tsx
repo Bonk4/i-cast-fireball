@@ -60,7 +60,7 @@ const SpacePickleApp = () => {
           />
 
           <Space h={'md'} />
-          <Divider size={'sm'} />
+          <Divider size={'md'} />
           <Space h={'md'} />
 
           <OrganismConfig

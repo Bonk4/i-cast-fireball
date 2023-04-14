@@ -84,13 +84,13 @@ const InitiativeList = ({
                     : 'init-dark-organism'
                 }
                 shadow="md"
-                radius="md"
-                p="md"
+                radius="sm"
+                p="sm"
                 withBorder
               >
                 <Group position="apart">
                   <div></div>
-                  <Title order={2}>
+                  <Title order={3}>
                     {organism.lightSide ? 'Light' : 'Dark'}
                   </Title>
                   <Button
@@ -103,7 +103,9 @@ const InitiativeList = ({
                     <i className="fa-solid fa-xmark"></i>
                   </Button>
                 </Group>
-                <Text>{`${organism.success} Success | ${organism.advantage} Advantage | ${organism.triumph} Triumph`}</Text>
+                <Text
+                  size={'sm'}
+                >{`${organism.success} Success | ${organism.advantage} Advantage | ${organism.triumph} Triumph`}</Text>
               </Paper>
             </>
           ),
