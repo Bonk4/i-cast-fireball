@@ -108,10 +108,12 @@ a:link {
 
 .init-light-organism {
   background-color: #084298 !important;
+  color: #C1C2C5 !important;
 }
 
 .init-dark-organism {
   background-color: #842029 !important;
+  color: #C1C2C5 !important;
 }
 
 /* Skill Checks */
